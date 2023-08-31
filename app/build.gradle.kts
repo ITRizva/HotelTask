@@ -13,11 +13,11 @@ kotlin {
     }
 }
 android {
-    namespace = "com.example.testtaskapp"
+    namespace = "com.example.hoteltest"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.testtaskapp"
+        applicationId = "com.example.hoteltest"
         minSdk = 24
         targetSdk = 33
         versionCode = 1

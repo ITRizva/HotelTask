@@ -12,7 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.hoteltest.presentation.hotel.HotelScreen
-import com.example.testtaskapp.R
+
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
