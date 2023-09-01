@@ -1,4 +1,4 @@
-package com.example.hoteltest.domain.interfaces
+package com.example.hoteltest.domain.interfaces.api
 
 import com.example.hoteltest.domain.Models.HotelInformationEntity
 import com.example.hoteltest.domain.Models.RoomsInformationEntity
