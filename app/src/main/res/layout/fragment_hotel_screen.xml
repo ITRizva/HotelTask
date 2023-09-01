@@ -71,7 +71,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="17dp"
                             android:layout_marginBottom="8dp"
-                            android:background="@color/white"
+                            android:background="@drawable/viewpager_dots_backgroung"
                             android:paddingStart="10dp"
                             android:paddingTop="5dp"
                             android:paddingEnd="10dp"
@@ -168,6 +168,9 @@
                         android:textSize="22sp" />
 
                     <androidx.appcompat.widget.AppCompatTextView
+                        android:background="?selectableItemBackground"
+                        android:focusable="true"
+                        android:clickable="true"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
@@ -321,6 +324,9 @@
                         android:background="@color/divider" />
 
                     <androidx.constraintlayout.widget.ConstraintLayout
+                        android:background="?selectableItemBackground"
+                        android:clickable="true"
+                        android:focusable="true"
                         android:layout_width="match_parent"
                         android:layout_height="50dp">
 
@@ -382,6 +388,9 @@
                         android:background="@color/divider" />
 
                     <androidx.constraintlayout.widget.ConstraintLayout
+                        android:background="?selectableItemBackground"
+                        android:clickable="true"
+                        android:focusable="true"
                         android:layout_width="match_parent"
                         android:layout_height="50dp">
 

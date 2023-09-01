@@ -11,6 +11,7 @@
     <color name="yellow_100">#FFC700</color>
     <color name="standard_blue">#0D72FF</color>
     <color name="standard_grey">#828796</color>
+    <color name="light_grey">#FBFBFC</color>
     <color name="divider">#26828796</color>
     <color name="screen_background">#FFF6F6F9</color>
 </resources>
