@@ -50,72 +50,71 @@
                 app:layout_constraintTop_toTopOf="@+id/scrollable_constraint">
 
                 <androidx.cardview.widget.CardView
-                    app:cardCornerRadius="15dp"
-                    android:layout_margin="16dp"
                     android:id="@+id/card_pager"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    app:cardCornerRadius="15dp"
                     app:layout_constraintTop_toTopOf="parent">
+
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
-                    <androidx.viewpager2.widget.ViewPager2
-                        android:id="@+id/viewPager2"
-                        android:layout_width="match_parent"
-                        android:layout_height="250dp"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        <androidx.viewpager2.widget.ViewPager2
+                            android:id="@+id/viewPager2"
+                            android:layout_width="match_parent"
+                            android:layout_height="250dp"
+                            app:layout_constraintTop_toTopOf="parent" />
 
-                    <androidx.appcompat.widget.LinearLayoutCompat
-                        android:background="@color/white"
-                        android:layout_width="wrap_content"
-                        android:layout_height="17dp"
-                        android:layout_marginBottom="8dp"
-                        android:paddingStart="10dp"
-                        android:paddingTop="5dp"
-                        android:paddingEnd="10dp"
-                        android:paddingBottom="5dp"
-                        app:layout_constraintBottom_toBottomOf="@+id/viewPager2"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent">
+                        <androidx.appcompat.widget.LinearLayoutCompat
+                            android:layout_width="wrap_content"
+                            android:layout_height="17dp"
+                            android:layout_marginBottom="8dp"
+                            android:background="@color/white"
+                            android:paddingStart="10dp"
+                            android:paddingTop="5dp"
+                            android:paddingEnd="10dp"
+                            android:paddingBottom="5dp"
+                            app:layout_constraintBottom_toBottomOf="@+id/viewPager2"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent">
 
-                        <androidx.cardview.widget.CardView
-                            android:layout_width="7dp"
-                            android:layout_height="7dp"
-                            app:cardCornerRadius="7dp">
+                            <androidx.cardview.widget.CardView
+                                android:layout_width="7dp"
+                                android:layout_height="7dp"
+                                app:cardCornerRadius="7dp">
 
-                            <androidx.appcompat.widget.AppCompatImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:src="@color/black" />
-                        </androidx.cardview.widget.CardView>
+                                <androidx.appcompat.widget.AppCompatImageView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:src="@color/black" />
+                            </androidx.cardview.widget.CardView>
 
-                        <androidx.cardview.widget.CardView
-                            android:layout_width="7dp"
-                            android:layout_height="7dp"
-                            android:layout_marginStart="5dp"
-                            app:cardCornerRadius="7dp">
+                            <androidx.cardview.widget.CardView
+                                android:layout_width="7dp"
+                                android:layout_height="7dp"
+                                android:layout_marginStart="5dp"
+                                app:cardCornerRadius="7dp">
 
-                            <androidx.appcompat.widget.AppCompatImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:src="@color/standard_grey" />
-                        </androidx.cardview.widget.CardView>
+                                <androidx.appcompat.widget.AppCompatImageView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:src="@color/standard_grey" />
+                            </androidx.cardview.widget.CardView>
 
-                        <androidx.cardview.widget.CardView
-                            android:layout_width="7dp"
-                            android:layout_height="7dp"
-                            android:layout_marginStart="5dp"
-                            app:cardCornerRadius="7dp">
+                            <androidx.cardview.widget.CardView
+                                android:layout_width="7dp"
+                                android:layout_height="7dp"
+                                android:layout_marginStart="5dp"
+                                app:cardCornerRadius="7dp">
 
-                            <androidx.appcompat.widget.AppCompatImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:src="@color/standard_grey" />
-                        </androidx.cardview.widget.CardView>
-
-
-                    </androidx.appcompat.widget.LinearLayoutCompat>
+                                <androidx.appcompat.widget.AppCompatImageView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:src="@color/standard_grey" />
+                            </androidx.cardview.widget.CardView>
+                        </androidx.appcompat.widget.LinearLayoutCompat>
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </androidx.cardview.widget.CardView>
 
