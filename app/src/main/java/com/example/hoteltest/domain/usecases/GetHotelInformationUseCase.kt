@@ -6,6 +6,7 @@ import javax.inject.Inject
 
 class GetHotelInformationUseCase @Inject constructor(private val repository:HotelRepositoryReceiver) {
     suspend fun execute():HotelInformationEntity?{
+
         return repository.getHotelInfo()
     }
 }

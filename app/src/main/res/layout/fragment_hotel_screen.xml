@@ -26,8 +26,37 @@
             android:textSize="18sp" />
     </androidx.appcompat.widget.Toolbar>
 
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/progress_layout"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/linearLayoutCompat3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/main_content"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/error"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/sfprodisplaybold"
+            android:text="@string/about_hotel"
+            android:textColor="@color/black"
+            android:textSize="22sp"
+            />
+        <ProgressBar
+            android:visibility="gone"
+            android:id="@+id/progress_circular"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            style="@style/Widget.Material3.CircularProgressIndicator"/>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
     <androidx.core.widget.NestedScrollView
-        android:id="@+id/nestedScrollView2"
+        android:visibility="visible"
+        android:id="@+id/main_content"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/linearLayoutCompat3"
@@ -139,6 +168,7 @@
                         android:src="@drawable/star" />
 
                     <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/hotel_rating"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -160,6 +190,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/linearLayoutCompat">
 
                     <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/hotel_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/sfprodisplaysemibold"
@@ -168,12 +199,13 @@
                         android:textSize="22sp" />
 
                     <androidx.appcompat.widget.AppCompatTextView
-                        android:background="?selectableItemBackground"
-                        android:focusable="true"
-                        android:clickable="true"
+                        android:id="@+id/hotel_adress"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
+                        android:background="?selectableItemBackground"
+                        android:clickable="true"
+                        android:focusable="true"
                         android:fontFamily="@font/sfprodisplaysemibold"
                         android:text="Madinat Makadi, Safaga Road, Makadi Bay, Египет"
                         android:textColor="@color/standard_blue"
@@ -190,6 +222,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/linearLayoutCompat2">
 
                     <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/minimal_price"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/sfprodisplaybold"
@@ -230,16 +263,20 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <com.google.android.material.chip.ChipGroup
+                    android:fontFamily="@font/sfprodisplaybold"
                     android:id="@+id/chipGroup"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/appCompatTextView" />
+                    app:layout_constraintTop_toBottomOf="@+id/appCompatTextView">
+
+                </com.google.android.material.chip.ChipGroup>
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/appCompatTextView2"
+
+                    android:id="@+id/hotel_about"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
@@ -257,7 +294,7 @@
                     android:layout_margin="16dp"
                     android:orientation="vertical"
                     android:padding="15dp"
-                    app:layout_constraintTop_toBottomOf="@+id/appCompatTextView2">
+                    app:layout_constraintTop_toBottomOf="@+id/hotel_about">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
@@ -324,11 +361,11 @@
                         android:background="@color/divider" />
 
                     <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
                         android:background="?selectableItemBackground"
                         android:clickable="true"
-                        android:focusable="true"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp">
+                        android:focusable="true">
 
                         <androidx.appcompat.widget.AppCompatImageView
                             android:id="@+id/appCompatImageView1"
@@ -388,11 +425,11 @@
                         android:background="@color/divider" />
 
                     <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
                         android:background="?selectableItemBackground"
                         android:clickable="true"
-                        android:focusable="true"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp">
+                        android:focusable="true">
 
                         <androidx.appcompat.widget.AppCompatImageView
                             android:id="@+id/appCompatImageView2"

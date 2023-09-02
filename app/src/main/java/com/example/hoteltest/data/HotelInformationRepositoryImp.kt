@@ -17,15 +17,15 @@ class HotelInformationRepositoryImp @Inject constructor(
     RoomsRepositoryReceiver,
     ImageRepositoryReceiver {
     override suspend fun getHotelInfo(): HotelInformationEntity? {
-        return hotelApi.getHotelInformation().body()
+        return if(hotelApi.getHotelInformation().isSuccessful) hotelApi.getHotelInformation().body() else null
     }
 
     override suspend fun getImage(url: String): ResponseBody? {
-        return imageloaderApi.getImage(url).body()
+        return if(imageloaderApi.getImage(url).isSuccessful) imageloaderApi.getImage(url).body() else null
     }
 
     override suspend fun getRoomsInformation(): RoomsInformationEntity? {
-        return hotelApi.getRoomInformation().body()
+        return if(hotelApi.getRoomInformation().isSuccessful) hotelApi.getRoomInformation().body() else null
     }
 
 }
