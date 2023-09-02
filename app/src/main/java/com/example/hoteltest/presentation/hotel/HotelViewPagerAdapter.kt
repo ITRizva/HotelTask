@@ -9,7 +9,7 @@ import androidx.viewpager.widget.ViewPager
 import com.example.hoteltest.databinding.FragmentHotelScreenBinding
 import com.example.hoteltest.databinding.HotelViewpagerItemBinding
 
-class HotelViewPagerAdapter(private val images: List<Int>) :
+class HotelViewPagerAdapter(private val images: ArrayList<Bitmap>) :
     RecyclerView.Adapter<ViewPagerViewHolder>() {
 
     override fun onCreateViewHolder(
@@ -43,8 +43,8 @@ class ViewPagerViewHolder(private val binding: HotelViewpagerItemBinding) :
             )
         )
     }
-    fun drawItem(image:Int){
-        binding.hotelImage.setImageResource(image)
+    fun drawItem(image:Bitmap){
+        binding.hotelImage.setImageBitmap(image)
     }
 
 }

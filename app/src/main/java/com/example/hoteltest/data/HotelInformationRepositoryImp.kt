@@ -12,7 +12,7 @@ import javax.inject.Inject
 
 class HotelInformationRepositoryImp @Inject constructor(
     private val hotelApi: HotelApi,
-    private val imageloaderApi: ImageLoaderApi
+    private val imageLoaderApi: ImageLoaderApi
 ) : HotelRepositoryReceiver,
     RoomsRepositoryReceiver,
     ImageRepositoryReceiver {
@@ -20,12 +20,11 @@ class HotelInformationRepositoryImp @Inject constructor(
         return if(hotelApi.getHotelInformation().isSuccessful) hotelApi.getHotelInformation().body() else null
     }
 
-    override suspend fun getImage(url: String): ResponseBody? {
-        return if(imageloaderApi.getImage(url).isSuccessful) imageloaderApi.getImage(url).body() else null
-    }
-
     override suspend fun getRoomsInformation(): RoomsInformationEntity? {
         return if(hotelApi.getRoomInformation().isSuccessful) hotelApi.getRoomInformation().body() else null
     }
 
+    override suspend fun getImage(url: String): ResponseBody? {
+        return if(imageLoaderApi.getImage(url).isSuccessful) imageLoaderApi.getImage(url).body() else null
+    }
 }

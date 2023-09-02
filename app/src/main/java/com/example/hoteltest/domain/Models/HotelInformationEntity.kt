@@ -22,9 +22,4 @@ data class HotelInformationEntity(
     @SerializedName("about_the_hotel")
     val aboutTheHotel:AboutHotel
 )
-data class AboutHotel(
-    @SerializedName("description")
-    val description:String,
-    @SerializedName("peculiarities")
-    val peculiarities:List<String>
-)
+

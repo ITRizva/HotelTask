@@ -31,45 +31,69 @@ class HotelScreen : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentHotelScreenBinding.inflate(inflater,container,false)
-        val list:List<Int>  = listOf(R.mipmap.first,R.mipmap.second,R.mipmap.third)
-        val adapter = HotelViewPagerAdapter(list)
-        binding?.viewPager2?.adapter = adapter
+        binding = FragmentHotelScreenBinding.inflate(inflater, container, false)
         return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.contentState.observe(viewLifecycleOwner){
-            render(it)
+        viewModel.contentState.observe(viewLifecycleOwner) {
+            renderScreen(it)
         }
     }
 
-    private fun render(information:HotelViewModelState){
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding = null
+    }
+
+    private fun renderScreen(information: HotelViewModelState) {
         when (information) {
             is HotelViewModelState.HotelScreenContent -> {
+                binding?.progressLayout?.visibility = View.GONE
+                binding?.mainContent?.visibility = View.VISIBLE
                 binding?.hotelName?.text = information.name
                 binding?.hotelAdress?.text = information.adress
                 binding?.minimalPrice?.text = information.minimalPrice.toString()
                 binding?.hotelRating?.text = information.ratingNumName
                 binding?.hotelAbout?.text = information.description
-                for(peculiaritie in information.peculiarities){
+                for (peculiaritie in information.peculiarities) {
                     binding?.chipGroup?.addView(createChip(peculiaritie))
                 }
+                val adapter = HotelViewPagerAdapter(information.imageList)
+                binding?.viewPager2?.adapter = adapter
             }
-            is HotelViewModelState.Error ->{
 
+            is HotelViewModelState.Error -> {
+                binding?.mainContent?.visibility = View.GONE
+                binding?.progressLayout?.visibility = View.VISIBLE
+                binding?.error?.visibility = View.VISIBLE
+                binding?.progressCircle?.visibility = View.GONE
+                binding?.error?.text = information.massage
+            }
+
+            is HotelViewModelState.Loading -> {
+                binding?.mainContent?.visibility = View.GONE
+                binding?.error?.visibility = View.GONE
+                binding?.progressLayout?.visibility = View.VISIBLE
+                binding?.progressCircle?.visibility = View.VISIBLE
             }
 
             else -> {}
         }
     }
-    private fun createChip(text:String):Chip{
-        val chip = Chip(this.context,null, com.google.android.material.R.style.Widget_MaterialComponents_Chip_Choice)
-        chip.shapeAppearanceModel = chip.shapeAppearanceModel.toBuilder().setAllCornerSizes(15.dp.value).build()
+
+    private fun createChip(text: String): Chip {
+        val chip = Chip(
+            this.context,
+            null,
+            com.google.android.material.R.style.Widget_MaterialComponents_Chip_Choice
+        )
+        chip.shapeAppearanceModel =
+            chip.shapeAppearanceModel.toBuilder().setAllCornerSizes(15.dp.value).build()
         chip.setChipBackgroundColorResource(R.color.light_grey)
-        chip.setTextColor(resources.getColor(R.color.standard_grey,null))
-        chip.typeface = Typeface.createFromAsset(context?.assets,"font/sfprodisplayregular.otf")
+        chip.setTextColor(resources.getColor(R.color.standard_grey, null))
+        chip.typeface = Typeface.createFromAsset(context?.assets, "font/sfprodisplayregular.otf")
         chip.text = text
         return chip
     }

@@ -5,4 +5,5 @@
     <string name="hotel">Отель</string>
     <string name="excellent_rate">5 Превосходно</string>
     <string name="about_hotel">Об отеле</string>
+    <string name="about_room">Подробнее о номере</string>
 </resources>

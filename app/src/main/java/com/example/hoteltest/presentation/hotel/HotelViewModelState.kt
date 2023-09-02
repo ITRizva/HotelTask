@@ -1,5 +1,7 @@
 package com.example.hoteltest.presentation.hotel
 
+import android.graphics.Bitmap
+
 sealed class HotelViewModelState{
     object Initial:HotelViewModelState()
     object Loading:HotelViewModelState()
@@ -10,7 +12,7 @@ sealed class HotelViewModelState{
         val minimalPrice: String,
         val priceForIt:String,
         val ratingNumName:String,
-
+        val imageList:ArrayList<Bitmap>,
         val description:String,
         val peculiarities:List<String>
     ):HotelViewModelState()

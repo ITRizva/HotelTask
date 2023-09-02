@@ -1,5 +1,7 @@
 package com.example.hoteltest.presentation.hotel
 
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -37,7 +39,12 @@ class HotelViewModel @Inject constructor(
             try {
                 val hotelInformation = getHotelInformation.execute()
                 if (hotelInformation != null) {
-                    val chipList =
+                    val imageList:ArrayList<Bitmap> = arrayListOf()
+                    for (url in hotelInformation.imageUrls){
+                        val responseImage = getImage.execute(url)
+                        val bitmapImage = BitmapFactory.decodeStream(responseImage?.byteStream())
+                        imageList.add(bitmapImage)
+                    }
                     _contentState.postValue(
                         HotelViewModelState.HotelScreenContent(
                             id = hotelInformation.id,
@@ -47,7 +54,8 @@ class HotelViewModel @Inject constructor(
                             priceForIt = hotelInformation.priceForIt,
                             ratingNumName = "${hotelInformation.rating} ${hotelInformation.ratingName}",
                             description = hotelInformation.aboutTheHotel.description,
-                            peculiarities = hotelInformation.aboutTheHotel.peculiarities
+                            peculiarities = hotelInformation.aboutTheHotel.peculiarities,
+                            imageList = imageList
                         )
                     )
                 } else {
