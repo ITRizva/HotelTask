@@ -37,6 +37,7 @@ class HotelViewModel @Inject constructor(
             try {
                 val hotelInformation = getHotelInformation.execute()
                 if (hotelInformation != null) {
+                    val chipList =
                     _contentState.postValue(
                         HotelViewModelState.HotelScreenContent(
                             id = hotelInformation.id,
@@ -57,4 +58,5 @@ class HotelViewModel @Inject constructor(
             }
         }
     }
+
 }

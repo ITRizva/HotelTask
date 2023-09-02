@@ -1,6 +1,7 @@
 package com.example.hoteltest.presentation.hotel
 
 import android.graphics.Bitmap
+import android.graphics.Typeface
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -53,7 +54,7 @@ class HotelScreen : Fragment() {
                 binding?.hotelRating?.text = information.ratingNumName
                 binding?.hotelAbout?.text = information.description
                 for(peculiaritie in information.peculiarities){
-                    addChip(peculiaritie)
+                    binding?.chipGroup?.addView(createChip(peculiaritie))
                 }
             }
             is HotelViewModelState.Error ->{
@@ -63,12 +64,13 @@ class HotelScreen : Fragment() {
             else -> {}
         }
     }
-    private fun addChip(text:String){
+    private fun createChip(text:String):Chip{
         val chip = Chip(this.context,null, com.google.android.material.R.style.Widget_MaterialComponents_Chip_Choice)
         chip.shapeAppearanceModel = chip.shapeAppearanceModel.toBuilder().setAllCornerSizes(15.dp.value).build()
         chip.setChipBackgroundColorResource(R.color.light_grey)
         chip.setTextColor(resources.getColor(R.color.standard_grey,null))
+        chip.typeface = Typeface.createFromAsset(context?.assets,"font/sfprodisplayregular.otf")
         chip.text = text
-        binding?.chipGroup?.addView(chip)
+        return chip
     }
 }
