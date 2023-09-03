@@ -11,6 +11,7 @@ import androidx.compose.ui.unit.dp
 import androidx.fragment.app.viewModels
 import com.example.hoteltest.R
 import com.example.hoteltest.databinding.FragmentHotelScreenBinding
+import com.example.hoteltest.presentation.rooms.RoomsScreen
 import com.google.android.material.chip.Chip
 
 import dagger.hilt.android.AndroidEntryPoint
@@ -40,6 +41,9 @@ class HotelScreen : Fragment() {
         viewModel.contentState.observe(viewLifecycleOwner) {
             renderScreen(it)
         }
+        binding?.roomsButton?.setOnClickListener {
+            requireActivity().supportFragmentManager.beginTransaction().replace(R.id.mainContainer,RoomsScreen()).addToBackStack("Rooms").commit()
+        }
     }
 
     override fun onDestroyView() {
@@ -60,8 +64,7 @@ class HotelScreen : Fragment() {
                 for (peculiaritie in information.peculiarities) {
                     binding?.chipGroup?.addView(createChip(peculiaritie))
                 }
-                val adapter = HotelViewPagerAdapter(information.imageList)
-                binding?.viewPager2?.adapter = adapter
+                binding?.viewPager2?.adapter = ViewPagerAdapter(information.imageList)
             }
 
             is HotelViewModelState.Error -> {
@@ -89,8 +92,7 @@ class HotelScreen : Fragment() {
             null,
             com.google.android.material.R.style.Widget_MaterialComponents_Chip_Choice
         )
-        chip.shapeAppearanceModel =
-            chip.shapeAppearanceModel.toBuilder().setAllCornerSizes(15.dp.value).build()
+        chip.shapeAppearanceModel = chip.shapeAppearanceModel.toBuilder().setAllCornerSizes(15.dp.value).build()
         chip.setChipBackgroundColorResource(R.color.light_grey)
         chip.setTextColor(resources.getColor(R.color.standard_grey, null))
         chip.typeface = Typeface.createFromAsset(context?.assets, "font/sfprodisplayregular.otf")
