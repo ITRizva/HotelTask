@@ -6,4 +6,5 @@
     <string name="excellent_rate">5 Превосходно</string>
     <string name="about_hotel">Об отеле</string>
     <string name="about_room">Подробнее о номере</string>
+    <string name="privacy_text_reservation">Эти данные никому не передаются. После оплаты мы вышли чек на указанный вами номер и почту</string>
 </resources>

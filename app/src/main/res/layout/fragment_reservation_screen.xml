@@ -390,7 +390,7 @@
                         android:layout_marginTop="8dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Имя"
+                        android:hint="Почта"
                         app:hintTextColor="@color/standard_grey"
                         app:hintTextAppearance="@font/sfprodisplayregular"
                         android:background="@drawable/edit_text_background"
@@ -401,6 +401,16 @@
                             android:layout_height="wrap_content"
                             />
                     </com.google.android.material.textfield.TextInputLayout>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:textColor="@color/standard_grey"
+                        android:textSize="14sp"
+                        android:text="@string/privacy_text_reservation"
+                        android:fontFamily="@font/sfprodisplayregular"
+                        />
 
 
 
