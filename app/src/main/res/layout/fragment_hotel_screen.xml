@@ -231,6 +231,7 @@
                         android:textSize="30sp" />
 
                     <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/price_for"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginStart="8dp"

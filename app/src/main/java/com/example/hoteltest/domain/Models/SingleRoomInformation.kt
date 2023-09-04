@@ -9,8 +9,8 @@ data class SingleRoomInformation(
     val name:String,
     @SerializedName("price")
     val price:Int,
-    @SerializedName("price_pre")
-    val pricePre:String,
+    @SerializedName("price_per")
+    val pricePer:String,
     @SerializedName("peculiarities")
     val peculiarities:List<String>,
     @SerializedName("image_urls")

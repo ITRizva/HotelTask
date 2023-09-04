@@ -61,10 +61,11 @@ class HotelScreen : Fragment() {
                 binding?.minimalPrice?.text = information.minimalPrice.toString()
                 binding?.hotelRating?.text = information.ratingNumName
                 binding?.hotelAbout?.text = information.description
-                for (peculiaritie in information.peculiarities) {
-                    binding?.chipGroup?.addView(createChip(peculiaritie))
-                }
                 binding?.viewPager2?.adapter = ViewPagerAdapter(information.imageList)
+                binding?.priceFor?.text = information.priceForIt
+                information.peculiarities.forEach {
+                    binding?.chipGroup?.addView(createChip(it))
+                }
             }
 
             is HotelViewModelState.Error -> {

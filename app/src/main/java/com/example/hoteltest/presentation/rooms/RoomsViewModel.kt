@@ -46,11 +46,11 @@ class RoomsViewModel @Inject constructor(
                             RoomsRecyclerItemData(
                                 id = it.id,
                                 name = it.name,
-                                price = it.price,
-                                pricePre = it.pricePre,
+                                price = "${it.price} ₽",
+                                pricePer = it.pricePer,
                                 peculiarities = it.peculiarities,
                                 images = it.imageUrls.map { url ->
-                                    val responseImage = getImage.execute(url)?: null
+                                    val responseImage = getImage.execute(url)
                                     BitmapFactory.decodeStream(responseImage?.byteStream())
                                 }
                             )
