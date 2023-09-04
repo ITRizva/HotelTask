@@ -41,6 +41,7 @@
                 app:layout_constraintStart_toStartOf="parent">
 
                 <androidx.cardview.widget.CardView
+                    app:cardElevation="0dp"
                     android:layout_width="7dp"
                     android:layout_height="7dp"
                     app:cardCornerRadius="7dp">
@@ -53,6 +54,7 @@
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
+                    app:cardElevation="0dp"
                     android:layout_width="7dp"
                     android:layout_height="7dp"
                     android:layout_marginStart="5dp"
@@ -62,10 +64,11 @@
                         android:id="@+id/second_dot"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:src="@color/standard_grey" />
+                        android:src="@color/grey_50" />
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
+                    app:cardElevation="0dp"
                     android:layout_width="7dp"
                     android:layout_height="7dp"
                     android:layout_marginStart="5dp"
@@ -75,7 +78,7 @@
                         android:id="@+id/third_dot"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:src="@color/standard_grey" />
+                        android:src="@color/grey_50" />
                 </androidx.cardview.widget.CardView>
             </androidx.appcompat.widget.LinearLayoutCompat>
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -170,6 +173,7 @@
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button_to_reservation"
         android:layout_margin="16dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

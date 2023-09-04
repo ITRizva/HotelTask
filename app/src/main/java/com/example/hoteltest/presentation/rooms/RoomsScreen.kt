@@ -23,7 +23,7 @@ import java.io.Serializable
 class RoomsScreen : Fragment() {
 
     private var binding:FragmentRoomsScreenBinding? = null
-    private val recycler:RoomsInformationAdapter by lazy{ RoomsInformationAdapter(context)}
+    private val recycler:RoomsInformationAdapter by lazy{ RoomsInformationAdapter(context,this)}
 
     private val viewModel by viewModels<RoomsViewModel>()
 
@@ -56,18 +56,25 @@ class RoomsScreen : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         viewModel.contentState.observe(viewLifecycleOwner){
-            when(it){
-                is RoomsViewModelState.RoomRecyclerContent ->{
-                    recycler.submitList(it.rooms)
-                }
-
-                else -> {}
-
-            }
-
+            renderScreen(it)
         }
 
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding = null
+    }
+
+    private fun renderScreen(information:RoomsViewModelState){
+        when(information){
+            is RoomsViewModelState.RoomRecyclerContent ->{
+                recycler.submitList(information.rooms)
+            }
+            else -> {}
+        }
     }
 
 

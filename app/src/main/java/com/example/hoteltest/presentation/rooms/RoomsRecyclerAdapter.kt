@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.hoteltest.databinding.RoomsRecyclerItemBinding
 import com.example.hoteltest.domain.Models.SingleRoomInformation
 import com.example.hoteltest.presentation.hotel.ViewPagerAdapter
+import com.example.hoteltest.presentation.reservation.ReservationScreen
 import com.google.android.material.R
 import com.google.android.material.chip.Chip
 import kotlinx.coroutines.CoroutineScope
@@ -24,12 +25,12 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.combineTransform
 import kotlinx.coroutines.launch
 
-class RoomsInformationAdapter(private val context: Context?) : ListAdapter<RoomsRecyclerItemData, RoomHolder>(diffCallback) {
+class RoomsInformationAdapter(private val context: Context?,private val fragment: Fragment/*это для теста строчно убрать fragment*/) : ListAdapter<RoomsRecyclerItemData, RoomHolder>(diffCallback) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RoomHolder =
         RoomHolder.createList(parent)
 
     override fun onBindViewHolder(holder: RoomHolder, position: Int) {
-        holder.drawItem(getItem(position), context)
+        holder.drawItem(getItem(position), context,fragment)
         onViewRecycled(holder)
     }
 
@@ -38,13 +39,16 @@ class RoomHolder(private val binding: RoomsRecyclerItemBinding) : RecyclerView.V
     companion object {
         fun createList(list: ViewGroup): RoomHolder = RoomHolder(RoomsRecyclerItemBinding.inflate((LayoutInflater.from(list.context)), list, false))
     }
-    fun drawItem(roomInfo: RoomsRecyclerItemData,context: Context?) {
+    fun drawItem(roomInfo: RoomsRecyclerItemData,context: Context?,fragment: Fragment) {
         binding.roomName.text = roomInfo.name
         binding.viewPager2.adapter = ViewPagerAdapter(roomInfo.images)
         binding.minimalPrice.text = roomInfo.price.toString()
         binding.priceFor.text = roomInfo.pricePer
         roomInfo.peculiarities?.forEach{
             binding.chipGroup.addView(createChip(it,context))
+        }
+        binding.buttonToReservation.setOnClickListener {
+            fragment.activity?.supportFragmentManager?.beginTransaction()?.replace(com.example.hoteltest.R.id.mainContainer,ReservationScreen())?.addToBackStack("RESERVATION")?.commit()// УБРАТЬ!!!(TODO ДЛЯ СЕБЯ)
         }
     }
 
