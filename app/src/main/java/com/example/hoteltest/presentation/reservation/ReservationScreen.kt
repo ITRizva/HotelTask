@@ -31,4 +31,14 @@ class ReservationScreen : Fragment() {
         binding?.recyclerPersons?.adapter = recycler
         return binding?.root
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewModel.personInformationItems.observe(viewLifecycleOwner){
+            recycler.submitList(it)
+        }
+        binding?.addPerson?.setOnClickListener {
+            viewModel.addPerson()
+        }
+    }
 }

@@ -56,7 +56,6 @@ class RoomsScreen : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         viewModel.contentState.observe(viewLifecycleOwner){
             renderScreen(it)
         }

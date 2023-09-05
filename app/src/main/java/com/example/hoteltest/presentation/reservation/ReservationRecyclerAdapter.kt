@@ -3,6 +3,7 @@ package com.example.hoteltest.presentation.reservation
 import android.content.Context
 import android.graphics.Typeface
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
@@ -26,14 +27,32 @@ class ReservationRecyclerAdapter() : ListAdapter<PersonRecyclerItem, PersonHolde
     }
 
 }
-class PersonHolder(private val binding: PersonsRecyclerItemBinding) : RecyclerView.ViewHolder(binding.root){
+
+class PersonHolder(private val binding: PersonsRecyclerItemBinding) :
+    RecyclerView.ViewHolder(binding.root) {
     companion object {
-        fun createList(list: ViewGroup): PersonHolder = PersonHolder(PersonsRecyclerItemBinding.inflate((LayoutInflater.from(list.context)), list, false))
+        fun createList(list: ViewGroup): PersonHolder = PersonHolder(
+            PersonsRecyclerItemBinding.inflate(
+                (LayoutInflater.from(list.context)),
+                list,
+                false
+            )
+        )
     }
+
     fun drawItem(personInfo: PersonRecyclerItem) {
+        binding.numLabel.text = personInfo.itemLabel
+        binding.personArrow.setOnClickListener {
+            if (binding.personLayoutInfo.visibility == View.VISIBLE) {
+                binding.personLayoutInfo.visibility = View.GONE
+                it.rotation = 180f
+            } else {
+                binding.personLayoutInfo.visibility = View.VISIBLE
+                it.rotation = 0f
+            }
 
+        }
     }
-
 
 
 }
