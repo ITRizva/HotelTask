@@ -19,7 +19,7 @@ class ReservationScreen : Fragment() {
     private var binding:FragmentReservationScreenBinding? = null
     private val viewModel by viewModels<ReservationViewModel>()
 
-    private val recycler: ReservationRecyclerAdapter by lazy{ ReservationRecyclerAdapter() }
+    private val recycler: ReservationRecyclerAdapter by lazy{ ReservationRecyclerAdapter { position:Int,personData:PersonRecyclerItem -> viewModel.writePersonData(position,personData)}}
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -40,5 +40,6 @@ class ReservationScreen : Fragment() {
         binding?.addPerson?.setOnClickListener {
             viewModel.addPerson()
         }
+
     }
 }

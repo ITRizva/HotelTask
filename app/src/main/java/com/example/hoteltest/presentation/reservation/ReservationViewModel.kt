@@ -23,6 +23,12 @@ class ReservationViewModel @Inject constructor(private val savedStateHandle: Sav
         }
     }
 
+    fun writePersonData(position:Int,personRecyclerItem: PersonRecyclerItem){
+        val newList = _personInformationItems.value?.toMutableList()
+        newList?.set(position, personRecyclerItem)
+        newList?.let{_personInformationItems.value = it}
+    }
+
     private fun Int.toOrdinalNumeral():String{
         return when(this){
             0->"Первый"

@@ -1,28 +1,20 @@
 package com.example.hoteltest.presentation.reservation
 
-import android.content.Context
-import android.graphics.Typeface
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.compose.ui.unit.dp
-import androidx.fragment.app.Fragment
+import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.hoteltest.databinding.PersonsRecyclerItemBinding
-import com.example.hoteltest.databinding.RoomsRecyclerItemBinding
-import com.example.hoteltest.presentation.hotel.ViewPagerAdapter
-import com.example.hoteltest.presentation.rooms.RoomsRecyclerItemData
-import com.google.android.material.R
-import com.google.android.material.chip.Chip
 
-class ReservationRecyclerAdapter() : ListAdapter<PersonRecyclerItem, PersonHolder>(diffCallback) {
+class ReservationRecyclerAdapter(private val personLambda:(Int,PersonRecyclerItem)->Unit) : ListAdapter<PersonRecyclerItem, PersonHolder>(diffCallback) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PersonHolder =
         PersonHolder.createList(parent)
 
     override fun onBindViewHolder(holder: PersonHolder, position: Int) {
-        holder.drawItem(getItem(position))
+        holder.drawItem(getItem(position),personLambda)
         onViewRecycled(holder)
     }
 
@@ -40,7 +32,7 @@ class PersonHolder(private val binding: PersonsRecyclerItemBinding) :
         )
     }
 
-    fun drawItem(personInfo: PersonRecyclerItem) {
+    fun drawItem(personInfo: PersonRecyclerItem,personLambda:(Int,PersonRecyclerItem)->Unit) {
         binding.numLabel.text = personInfo.itemLabel
         binding.personArrow.setOnClickListener {
             if (binding.personLayoutInfo.visibility == View.VISIBLE) {
@@ -50,8 +42,39 @@ class PersonHolder(private val binding: PersonsRecyclerItemBinding) :
                 binding.personLayoutInfo.visibility = View.VISIBLE
                 it.rotation = 0f
             }
-
         }
+        binding.nameEditText.addTextChangedListener {
+            sendAllEditText(binding,personLambda,adapterPosition)
+        }
+        binding.surnameEditText.addTextChangedListener {
+            sendAllEditText(binding,personLambda,adapterPosition)
+        }
+        binding.bornDateEditText.addTextChangedListener {
+            sendAllEditText(binding,personLambda,adapterPosition)
+        }
+        binding.citizenshipEditText.addTextChangedListener {
+            sendAllEditText(binding,personLambda,adapterPosition)
+        }
+        binding.intpassportEditText.addTextChangedListener {
+            sendAllEditText(binding,personLambda,adapterPosition)
+        }
+        binding.durationIntpassEditText.addTextChangedListener {
+            sendAllEditText(binding,personLambda,adapterPosition)
+        }
+
+
+    }
+    private fun sendAllEditText(binding: PersonsRecyclerItemBinding, personLambda: (Int, PersonRecyclerItem) -> Unit,position: Int){
+        val personData = PersonRecyclerItem(
+            itemLabel = binding.numLabel.text.toString(),
+            name = binding.nameEditText.text.toString(),
+            surName = binding.surnameEditText.toString(),
+            bornDate = binding.bornDateEditText.toString(),
+            citizenShip = binding.citizenshipEditText.toString(),
+            numIntPassport = binding.intpassportEditText.toString(),
+            durationIntPassport = binding.durationIntpassEditText.toString()
+        )
+        personLambda(position,personData)
     }
 
 

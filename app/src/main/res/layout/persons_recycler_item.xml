@@ -150,7 +150,7 @@
             app:hintTextColor="@color/standard_grey">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/email_edit_text"
+                android:id="@+id/duration_intpass_edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </com.google.android.material.textfield.TextInputLayout>
