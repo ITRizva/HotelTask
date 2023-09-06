@@ -62,6 +62,7 @@ class HotelScreen : Fragment() {
                 binding?.hotelRating?.text = information.ratingNumName
                 binding?.hotelAbout?.text = information.description
                 binding?.viewPager2?.adapter = ViewPagerAdapter(information.imageList)
+                binding?.viewPager2?.let { binding?.dots?.attachTo(it) }
                 binding?.priceFor?.text = information.priceForIt
                 information.peculiarities.forEach {
                     binding?.chipGroup?.addView(createChip(it))

@@ -42,6 +42,7 @@ class RoomHolder(private val binding: RoomsRecyclerItemBinding) : RecyclerView.V
     fun drawItem(roomInfo: RoomsRecyclerItemData,context: Context?,fragment: Fragment) {
         binding.roomName.text = roomInfo.name
         binding.viewPager2.adapter = ViewPagerAdapter(roomInfo.images)
+        binding.viewPager2.let{ binding.dots.attachTo(it) }
         binding.minimalPrice.text = roomInfo.price.toString()
         binding.priceFor.text = roomInfo.pricePer
         roomInfo.peculiarities?.forEach{
@@ -50,6 +51,7 @@ class RoomHolder(private val binding: RoomsRecyclerItemBinding) : RecyclerView.V
         binding.buttonToReservation.setOnClickListener {
             fragment.activity?.supportFragmentManager?.beginTransaction()?.replace(com.example.hoteltest.R.id.mainContainer,ReservationScreen())?.addToBackStack("RESERVATION")?.commit()// УБРАТЬ!!!(TODO ДЛЯ СЕБЯ)
         }
+
     }
 
     private fun createChip(text: String, context: Context?): Chip {

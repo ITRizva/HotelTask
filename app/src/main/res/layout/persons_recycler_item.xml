@@ -61,13 +61,17 @@
 
 
         <com.google.android.material.textfield.TextInputLayout
+            android:hint="Имя"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:background="@drawable/edit_text_background"
-            android:hint="Имя"
+            app:boxCornerRadiusBottomEnd="10dp"
+            app:boxCornerRadiusBottomStart="10dp"
+            app:boxCornerRadiusTopEnd="10dp"
+            app:boxCornerRadiusTopStart="10dp"
             app:boxStrokeWidth="0dp"
-            app:hintTextAppearance="@font/sfprodisplayregular"
+            app:boxStrokeWidthFocused="0dp"
             app:hintTextColor="@color/standard_grey"
 
             >
@@ -75,23 +79,32 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/name_edit_text"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:fontFamily="@font/sfprodisplayregular"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
+            android:hint="Фамилия"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:background="@drawable/edit_text_background"
-            android:hint="Фамилия"
+            app:boxCornerRadiusBottomEnd="10dp"
+            app:boxCornerRadiusBottomStart="10dp"
+            app:boxCornerRadiusTopEnd="10dp"
+            app:boxCornerRadiusTopStart="10dp"
             app:boxStrokeWidth="0dp"
-            app:hintTextAppearance="@font/sfprodisplayregular"
-            app:hintTextColor="@color/standard_grey">
+            app:boxStrokeWidthFocused="0dp"
+            app:hintTextColor="@color/standard_grey"
+            >
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/surname_edit_text"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:fontFamily="@font/sfprodisplayregular"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -99,60 +112,88 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:background="@drawable/edit_text_background"
-            android:hint="Дата рождения"
+            app:boxCornerRadiusBottomEnd="10dp"
+            app:boxCornerRadiusBottomStart="10dp"
+            app:boxCornerRadiusTopEnd="10dp"
+            app:boxCornerRadiusTopStart="10dp"
             app:boxStrokeWidth="0dp"
-            app:hintTextAppearance="@font/sfprodisplayregular"
-            app:hintTextColor="@color/standard_grey">
+            app:boxStrokeWidthFocused="0dp"
+            app:hintTextColor="@color/standard_grey"
+            android:hint="Дата рождения"
+            >
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/born_date_edit_text"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:fontFamily="@font/sfprodisplayregular"/>
         </com.google.android.material.textfield.TextInputLayout>
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:background="@drawable/edit_text_background"
-            android:hint="Гражданство"
+            app:boxCornerRadiusBottomEnd="10dp"
+            app:boxCornerRadiusBottomStart="10dp"
+            app:boxCornerRadiusTopEnd="10dp"
+            app:boxCornerRadiusTopStart="10dp"
             app:boxStrokeWidth="0dp"
-            app:hintTextAppearance="@font/sfprodisplayregular"
-            app:hintTextColor="@color/standard_grey">
+            app:boxStrokeWidthFocused="0dp"
+            app:hintTextColor="@color/standard_grey"
+            android:hint="Гражданство"
+            >
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/citizenship_edit_text"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:fontFamily="@font/sfprodisplayregular"/>
         </com.google.android.material.textfield.TextInputLayout>
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:background="@drawable/edit_text_background"
-            android:hint="Номер загранпаспорта"
+            app:boxCornerRadiusBottomEnd="10dp"
+            app:boxCornerRadiusBottomStart="10dp"
+            app:boxCornerRadiusTopEnd="10dp"
+            app:boxCornerRadiusTopStart="10dp"
             app:boxStrokeWidth="0dp"
-            app:hintTextAppearance="@font/sfprodisplayregular"
-            app:hintTextColor="@color/standard_grey">
+            app:boxStrokeWidthFocused="0dp"
+            app:hintTextColor="@color/standard_grey"
+            android:hint="Номер загранпаспорта"
+            >
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/intpassport_edit_text"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:fontFamily="@font/sfprodisplayregular"/>
         </com.google.android.material.textfield.TextInputLayout>
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:background="@drawable/edit_text_background"
-            android:hint="Срок действия загранпаспорта"
+            app:boxCornerRadiusBottomEnd="10dp"
+            app:boxCornerRadiusBottomStart="10dp"
+            app:boxCornerRadiusTopEnd="10dp"
+            app:boxCornerRadiusTopStart="10dp"
             app:boxStrokeWidth="0dp"
-            app:hintTextAppearance="@font/sfprodisplayregular"
-            app:hintTextColor="@color/standard_grey">
+            app:boxStrokeWidthFocused="0dp"
+            app:hintTextColor="@color/standard_grey"
+            android:hint="Срок действия загранпаспорта"
+            >
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/duration_intpass_edit_text"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:fontFamily="@font/sfprodisplayregular"/>
         </com.google.android.material.textfield.TextInputLayout>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
