@@ -11,6 +11,7 @@ import androidx.compose.ui.unit.dp
 import androidx.fragment.app.viewModels
 import com.example.hoteltest.R
 import com.example.hoteltest.databinding.FragmentHotelScreenBinding
+import com.example.hoteltest.navigator
 import com.example.hoteltest.presentation.rooms.RoomsScreen
 import com.google.android.material.chip.Chip
 
@@ -19,19 +20,16 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class HotelScreen : Fragment() {
 
-    private var binding: FragmentHotelScreenBinding? = null
     private val viewModel by viewModels<HotelViewModel>()
+
+    private var binding: FragmentHotelScreenBinding? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel.loadContent()
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentHotelScreenBinding.inflate(inflater, container, false)
         return binding?.root
     }
@@ -42,7 +40,7 @@ class HotelScreen : Fragment() {
             renderScreen(it)
         }
         binding?.roomsButton?.setOnClickListener {
-            requireActivity().supportFragmentManager.beginTransaction().replace(R.id.mainContainer,RoomsScreen()).addToBackStack("Rooms").commit()
+            viewModel.openRoomScreen(navigator())
         }
     }
 
@@ -89,11 +87,7 @@ class HotelScreen : Fragment() {
     }
 
     private fun createChip(text: String): Chip {
-        val chip = Chip(
-            this.context,
-            null,
-            com.google.android.material.R.style.Widget_MaterialComponents_Chip_Choice
-        )
+        val chip = Chip(this.context, null, com.google.android.material.R.style.Widget_MaterialComponents_Chip_Choice)
         chip.shapeAppearanceModel = chip.shapeAppearanceModel.toBuilder().setAllCornerSizes(15.dp.value).build()
         chip.setChipBackgroundColorResource(R.color.light_grey)
         chip.setTextColor(resources.getColor(R.color.standard_grey, null))

@@ -1,6 +1,7 @@
 package com.example.hoteltest.presentation.hotel
 
 import android.graphics.Bitmap
+import java.io.Serializable
 
 sealed class HotelViewModelState{
     object Initial:HotelViewModelState()

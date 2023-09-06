@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
+import com.example.hoteltest.presentation.rooms.ReservationSerializeData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -12,13 +13,16 @@ import javax.inject.Inject
 class ReservationViewModel @Inject constructor(private val savedStateHandle: SavedStateHandle) :
     ViewModel() {
 
-    //private val _travelInformation:MutableLiveData<>
     private val personsList: MutableLiveData<MutableList<PersonRecyclerItem>> = MutableLiveData(mutableListOf())
+
+    private val _hotelRoomData = savedStateHandle.getLiveData<ReservationSerializeData>(ReservationScreen.RESERVATION_SCREEN_VALUE)
+    val hotelRoomData:LiveData<ReservationSerializeData> = _hotelRoomData
 
     private val _personInformationItems: MutableLiveData<List<PersonRecyclerItem>> = MutableLiveData(personsList.value)
     val personInformationItems: LiveData<List<PersonRecyclerItem>> = _personInformationItems
 
-
+    private val _travelPrice:MutableLiveData<TravelPrice> = MutableLiveData()
+    val travelPrice:LiveData<TravelPrice> = _travelPrice
 
     fun addPerson() {
         _personInformationItems.value?.size?.let {
@@ -27,6 +31,8 @@ class ReservationViewModel @Inject constructor(private val savedStateHandle: Sav
                 _personInformationItems.value = personsList.value
             }
         }
+        val /// устал нужно написать логику для подсчета соимотси перелета с учетом топливных вычетов они костанта как я понял умножать цену на размер массива персон
+        val travelPrice = travelPrice.value?.copy(fullPrice = )
     }
 
     fun writePersonData(position: Int, personRecyclerItem: PersonRecyclerItem) {

@@ -18,4 +18,5 @@
     <color name="divider">#26828796</color>
     <color name="screen_background">#FFF6F6F9</color>
     <color name="dots_color">#38000038</color>
+    <color name="shimer_grey">#dddddd</color>
 </resources>

@@ -5,8 +5,10 @@ import android.graphics.BitmapFactory
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.hoteltest.NavigatorInterface
 import com.example.hoteltest.domain.usecases.GetHotelInformationUseCase
 import com.example.hoteltest.domain.usecases.GetImageUseCase
+import com.example.hoteltest.presentation.rooms.RoomsScreen
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -25,11 +27,26 @@ class HotelViewModel @Inject constructor(
 
     private val connectionScope = CoroutineScope(Dispatchers.IO)
 
+
     fun loadContent() {
         val state = _contentState.value
         when {
             state is HotelViewModelState.Initial || state is HotelViewModelState.Error -> updateData()
             else -> return
+        }
+    }
+
+    fun openRoomScreen(navigator: NavigatorInterface) {
+        (_contentState.value as? HotelViewModelState.HotelScreenContent)?.let {
+            val hotelInformation = HotelSerializeData(
+                name = it.name,
+                adress = it.adress,
+                priceForIt = it.priceForIt,
+                ratingNumName = it.ratingNumName,
+                description = it.description,
+            )
+            val roomFragment = RoomsScreen.newInstance(hotelInformation)
+            navigator.replaceScreen(roomFragment)
         }
     }
 
@@ -39,8 +56,8 @@ class HotelViewModel @Inject constructor(
             try {
                 val hotelInformation = getHotelInformation.execute()
                 if (hotelInformation != null) {
-                    val imageList:ArrayList<Bitmap> = arrayListOf()
-                    for (url in hotelInformation.imageUrls){
+                    val imageList: ArrayList<Bitmap> = arrayListOf()
+                    hotelInformation.imageUrls.forEach { url ->
                         val responseImage = getImage.execute(url)
                         val bitmapImage = BitmapFactory.decodeStream(responseImage?.byteStream())
                         imageList.add(bitmapImage)
@@ -61,7 +78,7 @@ class HotelViewModel @Inject constructor(
                 } else {
                     _contentState.postValue(HotelViewModelState.Error("Данных нет "))
                 }
-            } catch (io:Exception){
+            } catch (io: Exception) {
                 _contentState.postValue(HotelViewModelState.Error("404"))
             }
         }
