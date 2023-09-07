@@ -15,6 +15,6 @@ object NavigationModule {
     @Singleton
     @Provides
     fun provideNavigationHolder():NavigationHolder = NavigationHolder()
-
+    @Provides
     fun provideNavigationInterface(navigationHolder: NavigationHolder):NavigatorInterface = navigationHolder.getNavigator()
 }

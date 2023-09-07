@@ -4,5 +4,5 @@ import com.example.hoteltest.reservation.presentation.ui.PersonRegistrationItem
 import java.io.Serializable
 
 data class OrderSerializeData(
-    val reservationData:ReservationDataState,
+    val reservationData:ReservationDataState
 ):Serializable

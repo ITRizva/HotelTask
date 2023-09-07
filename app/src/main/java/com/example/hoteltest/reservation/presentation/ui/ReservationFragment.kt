@@ -13,9 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.hoteltest.R
 import com.example.hoteltest.binding.BaseFragment
 import com.example.hoteltest.databinding.FragmentReservationFragmentBinding
-import com.example.hoteltest.navigation.navigator
 import com.example.hoteltest.reservation.presentation.vm.ReservationDataState
-
 import com.example.hoteltest.reservation.presentation.vm.ReservationViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import ru.tinkoff.decoro.MaskImpl
@@ -83,7 +81,7 @@ class ReservationFragment : BaseFragment<FragmentReservationFragmentBinding>() {
         binding.payButton.setOnClickListener {
             if (binding.emailEditText.text.toString().isEmailValid() && binding.phoneEditText.text.toString().trim().isPhoneValid()
             ) {
-                viewModel.openOrderFragment(navigator())
+                viewModel.openOrderFragment()
             } else {
                 Toast.makeText(activity, resources.getString(R.string.num_email_error), Toast.LENGTH_SHORT).show()
                 setErrorEditTextBackground()

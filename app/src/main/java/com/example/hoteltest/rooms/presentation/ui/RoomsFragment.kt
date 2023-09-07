@@ -8,7 +8,6 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.hoteltest.binding.BaseFragment
 import com.example.hoteltest.databinding.FragmentRoomsFragmentBinding
-import com.example.hoteltest.navigation.navigator
 import com.example.hoteltest.rooms.presentation.vm.RoomsViewModel
 import com.example.hoteltest.rooms.presentation.vm.RoomsViewModelState
 import dagger.hilt.android.AndroidEntryPoint
@@ -19,7 +18,7 @@ class RoomsFragment : BaseFragment<FragmentRoomsFragmentBinding>() {
 
     private val viewModel by viewModels<RoomsViewModel>()
 
-    private val recycler: RoomsInformationAdapter by lazy{ RoomsInformationAdapter(context){ position-> viewModel.openReservationFragment(navigator(),position)} }
+    private val recycler: RoomsInformationAdapter by lazy{ RoomsInformationAdapter(context){ position-> viewModel.openReservationFragment(position)} }
 
     override fun getBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentRoomsFragmentBinding = FragmentRoomsFragmentBinding.inflate(inflater,container,false)
 

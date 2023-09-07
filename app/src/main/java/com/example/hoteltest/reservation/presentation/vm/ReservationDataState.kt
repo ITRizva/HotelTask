@@ -1,6 +1,7 @@
 package com.example.hoteltest.reservation.presentation.vm
 
 import com.example.hoteltest.reservation.presentation.ui.PersonRegistrationItem
+import java.io.Serializable
 
 data class ReservationDataState(
     val hotelname:String?,
@@ -19,4 +20,4 @@ data class ReservationDataState(
     val phoneNumber:String?,
     val email:String?,
     val personList:List<PersonRegistrationItem>
-)
+):Serializable

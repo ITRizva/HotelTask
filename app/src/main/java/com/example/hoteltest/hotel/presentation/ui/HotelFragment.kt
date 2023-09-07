@@ -12,7 +12,6 @@ import com.example.hoteltest.binding.BaseFragment
 import com.example.hoteltest.databinding.FragmentHotelFragmentBinding
 import com.example.hoteltest.hotel.presentation.vm.HotelViewModel
 import com.example.hoteltest.hotel.presentation.vm.HotelViewModelState
-import com.example.hoteltest.navigation
 import com.google.android.material.chip.Chip
 
 import dagger.hilt.android.AndroidEntryPoint
@@ -31,7 +30,7 @@ class HotelFragment : BaseFragment<FragmentHotelFragmentBinding>() {
             renderScreen(it)
         }
         binding.roomsButton.setOnClickListener {
-            viewModel.openRoomScreen(navigator())
+            viewModel.openRoomScreen()
         }
     }
 

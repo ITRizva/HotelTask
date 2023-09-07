@@ -14,7 +14,8 @@ import java.io.Serializable
 import javax.inject.Inject
 
 @HiltViewModel
-class ReservationViewModel @Inject constructor(private val savedStateHandle: SavedStateHandle) :
+class ReservationViewModel @Inject constructor(private val savedStateHandle: SavedStateHandle,
+                                               private val navigator:NavigatorInterface) :
     ViewModel() {
 
     private val _personsList: MutableLiveData<MutableList<PersonRegistrationItem>> = MutableLiveData(mutableListOf(PersonRegistrationItem("Первый турист")))
@@ -74,9 +75,9 @@ class ReservationViewModel @Inject constructor(private val savedStateHandle: Sav
         newList?.let { _personsList.value = it }
     }
 
-    fun openOrderFragment(navigator: NavigatorInterface){
-        val orderData = _reservationData.value?.let { OrderSerializeData(it) }
-        orderData?.let { OrderFragment.newInstance(it) }?.let { navigator.replaceScreen(it) }
+    fun openOrderFragment(){
+        val orderData = _reservationData.value?.let { OrderSerializeData(it)}
+        orderData?.let { navigator.replaceScreen(it,OrderFragment.ORDER_FRAGMENT_VALUE) }
     }
 
     private fun Int.toOrdinalNumeral(): String {

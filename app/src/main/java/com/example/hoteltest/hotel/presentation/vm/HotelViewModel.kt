@@ -19,7 +19,8 @@ import javax.inject.Inject
 @HiltViewModel
 class HotelViewModel @Inject constructor(
     private val getHotelInformation: GetHotelInformationUseCase,
-    private val getImage: GetImageUseCase
+    private val getImage: GetImageUseCase,
+    private val navigator:NavigatorInterface
 ) : ViewModel() {
 
     private val _contentState = MutableLiveData<HotelViewModelState>(HotelViewModelState.Initial)
@@ -36,7 +37,7 @@ class HotelViewModel @Inject constructor(
         }
     }
 
-    fun openRoomScreen(navigator: NavigatorInterface) {
+    fun openRoomScreen() {
         (_contentState.value as? HotelViewModelState.HotelFragmentContent)?.let {
             val hotelInformation = HotelSerializeData(
                 name = it.name,
@@ -45,8 +46,7 @@ class HotelViewModel @Inject constructor(
                 ratingNumName = it.ratingNumName,
                 description = it.description,
             )
-            val roomFragment = RoomsFragment.newInstance(hotelInformation)
-            navigator.replaceScreen(roomFragment)
+            navigator.replaceScreen(hotelInformation,RoomsFragment.ROOM_SCREEN_VALUE)
         }
     }
 

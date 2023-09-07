@@ -23,7 +23,8 @@ import javax.inject.Inject
 class RoomsViewModel @Inject constructor(
     private val getRoomsInformation: GetRoomsInformationUseCase,
     private val getImage: GetImageUseCase,
-    private val savedStateHandle: SavedStateHandle
+    private val savedStateHandle: SavedStateHandle,
+    private val navigator:NavigatorInterface
 ) : ViewModel() {
 
     private val _contentState = MutableLiveData<RoomsViewModelState>(RoomsViewModelState.Initial)
@@ -44,7 +45,7 @@ class RoomsViewModel @Inject constructor(
         }
     }
 
-    fun openReservationFragment(navigator: NavigatorInterface, position:Int){
+    fun openReservationFragment(position:Int){
         (_contentState.value as? RoomsViewModelState.RoomRecyclerContent)?.let {
             val room = it.rooms[position]
             val argumentsRoom = RoomSerializeData(
@@ -53,8 +54,7 @@ class RoomsViewModel @Inject constructor(
                 pricePer = room.pricePer,
                 peculiarities = room.peculiarities)
             val roomData = HotelRoomSerializeData(argumentsRoom,argumentsHotel)
-            val roomFragment = ReservationFragment.newInstance(roomData)
-            navigator.replaceScreen(roomFragment)
+            navigator.replaceScreen(roomData,ReservationFragment.RESERVATION_SCREEN_VALUE)
         }
     }
 
