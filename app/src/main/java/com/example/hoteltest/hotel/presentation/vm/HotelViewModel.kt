@@ -1,4 +1,4 @@
-package com.example.hoteltest.presentation.hotel
+package com.example.hoteltest.hotel.presentation.vm
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -8,7 +8,7 @@ import androidx.lifecycle.ViewModel
 import com.example.hoteltest.NavigatorInterface
 import com.example.hoteltest.domain.usecases.GetHotelInformationUseCase
 import com.example.hoteltest.domain.usecases.GetImageUseCase
-import com.example.hoteltest.presentation.rooms.RoomsScreen
+import com.example.hoteltest.rooms.presentation.ui.RoomsFragment
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -37,7 +37,7 @@ class HotelViewModel @Inject constructor(
     }
 
     fun openRoomScreen(navigator: NavigatorInterface) {
-        (_contentState.value as? HotelViewModelState.HotelScreenContent)?.let {
+        (_contentState.value as? HotelViewModelState.HotelFragmentContent)?.let {
             val hotelInformation = HotelSerializeData(
                 name = it.name,
                 adress = it.adress,
@@ -45,7 +45,7 @@ class HotelViewModel @Inject constructor(
                 ratingNumName = it.ratingNumName,
                 description = it.description,
             )
-            val roomFragment = RoomsScreen.newInstance(hotelInformation)
+            val roomFragment = RoomsFragment.newInstance(hotelInformation)
             navigator.replaceScreen(roomFragment)
         }
     }
@@ -63,7 +63,7 @@ class HotelViewModel @Inject constructor(
                         imageList.add(bitmapImage)
                     }
                     _contentState.postValue(
-                        HotelViewModelState.HotelScreenContent(
+                        HotelViewModelState.HotelFragmentContent(
                             id = hotelInformation.id,
                             name = hotelInformation.name,
                             adress = hotelInformation.adress,

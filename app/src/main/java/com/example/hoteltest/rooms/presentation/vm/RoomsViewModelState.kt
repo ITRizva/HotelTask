@@ -1,8 +1,6 @@
-package com.example.hoteltest.presentation.rooms
+package com.example.hoteltest.rooms.presentation.vm
 
-import android.graphics.Bitmap
-import com.example.hoteltest.domain.Models.RoomsInformationEntity
-import com.example.hoteltest.presentation.hotel.HotelViewModelState
+import com.example.hoteltest.rooms.presentation.ui.RoomsRecyclerItemData
 
 sealed class RoomsViewModelState {
     object Initial: RoomsViewModelState()

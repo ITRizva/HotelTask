@@ -1,29 +1,19 @@
 package com.example.hoteltest
 
 import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import com.example.hoteltest.presentation.hotel.HotelScreen
+import com.example.hoteltest.hotel.presentation.ui.HotelFragment
 
 import dagger.hilt.android.AndroidEntryPoint
-
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity(), NavigatorInterface {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction().add(R.id.mainContainer, HotelScreen())
+            supportFragmentManager.beginTransaction().add(R.id.mainContainer, HotelFragment())
                 .commit()
         }
     }

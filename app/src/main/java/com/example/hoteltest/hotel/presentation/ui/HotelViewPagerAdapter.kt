@@ -1,12 +1,9 @@
-package com.example.hoteltest.presentation.hotel
+package com.example.hoteltest.hotel.presentation.ui
 
 import android.graphics.Bitmap
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager.widget.ViewPager
-import com.example.hoteltest.databinding.FragmentHotelScreenBinding
 import com.example.hoteltest.databinding.HotelViewpagerItemBinding
 
 class ViewPagerAdapter(private val images: List<Bitmap>?) :

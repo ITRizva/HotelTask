@@ -33,13 +33,11 @@ object RetrofitModule {
     }
     @Provides
     @Singleton
-    fun provideHotelApi(okHttpClient: OkHttpClient):HotelApi{
-        return Retrofit.Builder().baseUrl("https://run.mocky.io/v3/").addConverterFactory(GsonConverterFactory.create()).client(okHttpClient).build().create(HotelApi::class.java)
-    }
+    fun provideHotelApi(okHttpClient: OkHttpClient):HotelApi = Retrofit.Builder().baseUrl("https://run.mocky.io/v3/").addConverterFactory(GsonConverterFactory.create()).client(okHttpClient).build().create(HotelApi::class.java)
+
     @Provides
     @Singleton
-    fun provideImageLoaderApi(okHttpClient: OkHttpClient):ImageLoaderApi{
-        return Retrofit.Builder().baseUrl("https://run.mocky.io/v3/").addConverterFactory(GsonConverterFactory.create()).client(okHttpClient).build().create(ImageLoaderApi::class.java)
-    }
+    fun provideImageLoaderApi(okHttpClient: OkHttpClient):ImageLoaderApi = Retrofit.Builder().baseUrl("https://run.mocky.io/v3/").addConverterFactory(GsonConverterFactory.create()).client(okHttpClient).build().create(ImageLoaderApi::class.java)
+
 
 }

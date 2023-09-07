@@ -1,4 +1,4 @@
-package com.example.hoteltest.presentation.reservation
+package com.example.hoteltest.reservation.presentation.ui
 
 data class PersonRecyclerItem(
     val itemLabel:String,

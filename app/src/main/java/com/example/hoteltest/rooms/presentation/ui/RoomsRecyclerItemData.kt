@@ -1,7 +1,6 @@
-package com.example.hoteltest.presentation.rooms
+package com.example.hoteltest.rooms.presentation.ui
 
 import android.graphics.Bitmap
-import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
 data class RoomsRecyclerItemData(

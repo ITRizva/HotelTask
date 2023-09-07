@@ -20,38 +20,30 @@ import javax.inject.Singleton
 object UseCasesModule {
     @Provides
     @Singleton
-    fun provideHotelInformationRepositoryImp(hotelApi: HotelApi,imageLoaderApi: ImageLoaderApi): HotelInformationRepositoryImp {
-        return HotelInformationRepositoryImp(hotelApi,imageLoaderApi)
-    }
-    @Provides
-    @Singleton
-    fun provideHotelRepositoryReceiver(repositoryImp:HotelInformationRepositoryImp):HotelRepositoryReceiver{
-        return repositoryImp
-    }
-    @Provides
-    @Singleton
-    fun provideRoomsRepositoryReceiver(repositoryImp:HotelInformationRepositoryImp):RoomsRepositoryReceiver{
-        return repositoryImp
-    }
-    @Provides
-    @Singleton
-    fun provideImageRepositoryReceiver(repositoryImp:HotelInformationRepositoryImp):ImageRepositoryReceiver{
-        return repositoryImp
-    }
+    fun provideHotelInformationRepositoryImp(hotelApi: HotelApi,imageLoaderApi: ImageLoaderApi): HotelInformationRepositoryImp = HotelInformationRepositoryImp(hotelApi,imageLoaderApi)
 
     @Provides
     @Singleton
-    fun provideGetHotelInformationUseCase(repository:HotelRepositoryReceiver):GetHotelInformationUseCase{
-        return GetHotelInformationUseCase(repository)
-    }
+    fun provideHotelRepositoryReceiver(repositoryImp:HotelInformationRepositoryImp):HotelRepositoryReceiver = repositoryImp
+
     @Provides
     @Singleton
-    fun provideGetRoomsInformationUseCase(repository:RoomsRepositoryReceiver):GetRoomsInformationUseCase{
-        return GetRoomsInformationUseCase(repository)
-    }
+    fun provideRoomsRepositoryReceiver(repositoryImp:HotelInformationRepositoryImp):RoomsRepositoryReceiver = repositoryImp
+
     @Provides
     @Singleton
-    fun provideGetImageUseCase(repository:ImageRepositoryReceiver):GetImageUseCase{
-        return GetImageUseCase(repository)
-    }
+    fun provideImageRepositoryReceiver(repositoryImp:HotelInformationRepositoryImp):ImageRepositoryReceiver = repositoryImp
+
+
+    @Provides
+    @Singleton
+    fun provideGetHotelInformationUseCase(repository:HotelRepositoryReceiver):GetHotelInformationUseCase = GetHotelInformationUseCase(repository)
+
+    @Provides
+    @Singleton
+    fun provideGetRoomsInformationUseCase(repository:RoomsRepositoryReceiver):GetRoomsInformationUseCase = GetRoomsInformationUseCase(repository)
+
+    @Provides
+    @Singleton
+    fun provideGetImageUseCase(repository:ImageRepositoryReceiver):GetImageUseCase = GetImageUseCase(repository)
 }

@@ -1,4 +1,4 @@
-package com.example.hoteltest.presentation
+package com.example.hoteltest
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp

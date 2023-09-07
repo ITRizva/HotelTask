@@ -1,4 +1,4 @@
-package com.example.hoteltest.presentation.rooms
+package com.example.hoteltest.rooms.presentation.vm
 
 import java.io.Serializable
 

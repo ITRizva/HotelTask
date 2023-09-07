@@ -1,4 +1,4 @@
-package com.example.hoteltest.presentation.rooms
+package com.example.hoteltest.rooms.presentation.vm
 
 import android.graphics.BitmapFactory
 import androidx.lifecycle.LiveData
@@ -8,8 +8,10 @@ import androidx.lifecycle.ViewModel
 import com.example.hoteltest.NavigatorInterface
 import com.example.hoteltest.domain.usecases.GetImageUseCase
 import com.example.hoteltest.domain.usecases.GetRoomsInformationUseCase
-import com.example.hoteltest.presentation.hotel.HotelSerializeData
-import com.example.hoteltest.presentation.reservation.ReservationScreen
+import com.example.hoteltest.hotel.presentation.vm.HotelSerializeData
+import com.example.hoteltest.reservation.presentation.ui.ReservationFragment
+import com.example.hoteltest.rooms.presentation.ui.RoomsFragment
+import com.example.hoteltest.rooms.presentation.ui.RoomsRecyclerItemData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -30,7 +32,7 @@ class RoomsViewModel @Inject constructor(
     private val _hotelName:MutableLiveData<String> = MutableLiveData()
     val hotelName:LiveData<String> = _hotelName
 
-    private val argumentsHotel = savedStateHandle.get<Serializable>(RoomsScreen.ROOM_SCREEN_VALUE) as HotelSerializeData
+    private val argumentsHotel = savedStateHandle.get<Serializable>(RoomsFragment.ROOM_SCREEN_VALUE) as HotelSerializeData
     private val connectionScope = CoroutineScope(Dispatchers.IO)
 
     fun loadContent() {
@@ -42,7 +44,7 @@ class RoomsViewModel @Inject constructor(
         }
     }
 
-    fun openReservationScreen(navigator:NavigatorInterface,position:Int){
+    fun openReservationFragment(navigator:NavigatorInterface,position:Int){
         (_contentState.value as? RoomsViewModelState.RoomRecyclerContent)?.let {
             val room = it.rooms[position]
             val argumentsRoom = RoomSerializeData(
@@ -51,7 +53,7 @@ class RoomsViewModel @Inject constructor(
                 pricePer = room.pricePer,
                 peculiarities = room.peculiarities)
             val roomData = ReservationSerializeData(argumentsRoom,argumentsHotel)
-            val roomFragment = ReservationScreen.newInstance(roomData)
+            val roomFragment = ReservationFragment.newInstance(roomData)
             navigator.replaceScreen(roomFragment)
         }
     }

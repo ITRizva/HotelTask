@@ -1,12 +1,11 @@
-package com.example.hoteltest.presentation.hotel
+package com.example.hoteltest.hotel.presentation.vm
 
 import android.graphics.Bitmap
-import java.io.Serializable
 
 sealed class HotelViewModelState{
-    object Initial:HotelViewModelState()
-    object Loading:HotelViewModelState()
-    data class HotelScreenContent(
+    object Initial: HotelViewModelState()
+    object Loading: HotelViewModelState()
+    data class HotelFragmentContent(
         val id:Long,
         val name:String,
         val adress:String,
@@ -16,6 +15,6 @@ sealed class HotelViewModelState{
         val imageList:ArrayList<Bitmap>,
         val description:String,
         val peculiarities:List<String>
-    ):HotelViewModelState()
-    data class Error(val massage:String):HotelViewModelState()
+    ): HotelViewModelState()
+    data class Error(val massage:String): HotelViewModelState()
 }

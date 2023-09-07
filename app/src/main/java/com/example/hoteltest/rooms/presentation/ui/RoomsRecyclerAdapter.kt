@@ -1,4 +1,4 @@
-package com.example.hoteltest.presentation.rooms
+package com.example.hoteltest.rooms.presentation.ui
 
 import android.content.Context
 import android.graphics.Typeface
@@ -9,12 +9,13 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.hoteltest.databinding.RoomsRecyclerItemBinding
-import com.example.hoteltest.presentation.hotel.ViewPagerAdapter
-import com.example.hoteltest.presentation.reservation.ReservationScreen
+import com.example.hoteltest.hotel.presentation.ui.ViewPagerAdapter
 import com.google.android.material.R
 import com.google.android.material.chip.Chip
 
-class RoomsInformationAdapter(private val context: Context?,private val openReservationLambda:(Int) -> Unit) : ListAdapter<RoomsRecyclerItemData, RoomHolder>(diffCallback) {
+class RoomsInformationAdapter(private val context: Context?,private val openReservationLambda:(Int) -> Unit) : ListAdapter<RoomsRecyclerItemData, RoomHolder>(
+    diffCallback
+) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RoomHolder =
         RoomHolder.createList(parent)
 
@@ -28,7 +29,7 @@ class RoomHolder(private val binding: RoomsRecyclerItemBinding) : RecyclerView.V
     companion object {
         fun createList(list: ViewGroup): RoomHolder = RoomHolder(RoomsRecyclerItemBinding.inflate((LayoutInflater.from(list.context)), list, false))
     }
-    fun drawItem(roomInfo: RoomsRecyclerItemData, context: Context?, openReservationScreen: (Int) -> Unit) {
+    fun drawItem(roomInfo: RoomsRecyclerItemData, context: Context?, openReservationFragment: (Int) -> Unit) {
         binding.roomName.text = roomInfo.name
         binding.viewPager2.adapter = ViewPagerAdapter(roomInfo.images)
         binding.viewPager2.let{ binding.dots.attachTo(it) }
@@ -38,7 +39,7 @@ class RoomHolder(private val binding: RoomsRecyclerItemBinding) : RecyclerView.V
             binding.chipGroup.addView(createChip(it,context))
         }
         binding.buttonToReservation.setOnClickListener {
-            openReservationScreen(adapterPosition)
+            openReservationFragment(adapterPosition)
         }
 
     }

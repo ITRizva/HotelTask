@@ -69,6 +69,7 @@ android {
 }
 
 dependencies {
+    implementation ("ru.tinkoff.decoro:decoro:1.5.2")
     implementation ("com.google.android.material:material:1.9.0")
     implementation ("com.google.dagger:hilt-android:2.44")
     implementation ("androidx.work:work-runtime-ktx:2.8.1")
@@ -76,8 +77,8 @@ dependencies {
     implementation("com.google.code.gson:gson:2.10.1")
     implementation ("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("androidx.core:core-ktx:1.10.1")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
+    implementation("androidx.core:core-ktx:1.12.0")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
     implementation("androidx.activity:activity-compose:1.7.2")
     implementation(platform("androidx.compose:compose-bom:2023.03.00"))
     implementation("androidx.compose.ui:ui")
@@ -97,6 +98,8 @@ dependencies {
     implementation("com.tbuonomo:dotsindicator:5.0")
     implementation ("com.facebook.shimmer:shimmer:0.5.0")
     implementation ("com.github.bumptech.glide:glide:4.16.0")
+
+
 
 
 

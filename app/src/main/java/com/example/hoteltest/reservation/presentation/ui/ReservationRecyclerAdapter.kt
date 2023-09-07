@@ -1,4 +1,4 @@
-package com.example.hoteltest.presentation.reservation
+package com.example.hoteltest.reservation.presentation.ui
 
 import android.view.LayoutInflater
 import android.view.View
@@ -44,14 +44,6 @@ class PersonHolder(private val binding: PersonsRecyclerItemBinding) :
                 it.rotation = 0f
             }
         }
-
-        binding.nameEditText.setText(personInfo.name)
-        binding.surnameEditText.setText(personInfo.surName)
-        binding.bornDateEditText.setText(personInfo.bornDate)
-        binding.citizenshipEditText.setText(personInfo.citizenShip)
-        binding.intpassportEditText.setText(personInfo.numIntPassport)
-        binding.durationIntpassEditText.setText(personInfo.durationIntPassport)
-
         binding.nameEditText.addTextChangedListener {
             sendAllEditText(binding, personLambda, adapterPosition)
         }
