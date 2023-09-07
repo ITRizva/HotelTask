@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.example.hoteltest.hotel.presentation.ui.HotelFragment
+import com.example.hoteltest.navigation.NavigatorInterface
 
 import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint

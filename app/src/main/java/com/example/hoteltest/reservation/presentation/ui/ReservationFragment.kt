@@ -2,25 +2,22 @@ package com.example.hoteltest.reservation.presentation.ui
 
 import android.os.Bundle
 import android.text.TextUtils
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
-import androidx.appcompat.content.res.AppCompatResources
-import androidx.core.content.res.ResourcesCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.hoteltest.R
 import com.example.hoteltest.binding.BaseFragment
 import com.example.hoteltest.databinding.FragmentReservationFragmentBinding
-import com.example.hoteltest.navigator
+import com.example.hoteltest.navigation.navigator
+import com.example.hoteltest.reservation.presentation.vm.ReservationDataState
 
 import com.example.hoteltest.reservation.presentation.vm.ReservationViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import ru.tinkoff.decoro.Mask
 import ru.tinkoff.decoro.MaskImpl
 import ru.tinkoff.decoro.slots.PredefinedSlots
 import ru.tinkoff.decoro.watchers.MaskFormatWatcher
@@ -66,22 +63,11 @@ class ReservationFragment : BaseFragment<FragmentReservationFragmentBinding>() {
         binding.recyclerPersons.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         binding.recyclerPersons.adapter = recycler
 
-        viewModel.personInformationItems.observe(viewLifecycleOwner) {
-            recycler.submitList(it)
+        viewModel.reservationData.observe(viewLifecycleOwner) {
+            recycler.submitList(it.personList)
         }
         viewModel.reservationData.observe(viewLifecycleOwner) {
-            binding.hotelRating.text = it.ratingNumName
-            binding.hotelName.text = it.hotelname
-            binding.hotel.text = it.hotelname
-            binding.hotelAdress.text = it.adress
-            binding.pricePer.text = it.pricePer
-            binding.roomName.text = it.roomname
-            binding.nutrition.text = it.peculiarities?.get(0)
-            binding.tour.text = String.format(resources.getString(R.string.ruble_price),it.tour.toString())
-            binding.fuelPrice.text = String.format(resources.getString(R.string.ruble_price),it.fuel.toString())
-            binding.servicePrice.text = String.format(resources.getString(R.string.ruble_price),it.service.toString())
-            binding.fullPrice.text = String.format(resources.getString(R.string.ruble_price),it.fullPrice.toString())
-            binding.payButton.text = String.format(resources.getString(R.string.ruble_button_price),it.fullPrice.toString())
+            renderScreen(it)
         }
         binding.addPerson.setOnClickListener {
             viewModel.addPerson()
@@ -105,16 +91,30 @@ class ReservationFragment : BaseFragment<FragmentReservationFragmentBinding>() {
         }
     }
 
+    private fun renderScreen(state:ReservationDataState){
+        binding.hotelRating.text = state.ratingNumName
+        binding.hotelName.text = state.hotelname
+        binding.hotel.text = state.hotelname
+        binding.hotelAdress.text = state.adress
+        binding.pricePer.text = state.pricePer
+        binding.roomName.text = state.roomname
+        binding.nutrition.text = state.peculiarities?.get(0)
+        binding.tour.text = String.format(resources.getString(R.string.ruble_price),state.tour.toString())
+        binding.fuelPrice.text = String.format(resources.getString(R.string.ruble_price),state.fuel.toString())
+        binding.servicePrice.text = String.format(resources.getString(R.string.ruble_price),state.service.toString())
+        binding.fullPrice.text = String.format(resources.getString(R.string.ruble_price),state.fullPrice.toString())
+        binding.payButton.text = String.format(resources.getString(R.string.ruble_button_price),state.fullPrice.toString())
+    }
     private fun setErrorEditTextBackground() {
-        val errorColor = ResourcesCompat.getColor(resources, R.color.invalid_edit_text, null)
-        binding.emailEditLayout.boxBackgroundColor = errorColor
-        binding.phoneEditLayout.boxBackgroundColor = errorColor
+        val errorBackground = resources.getColor(R.color.invalid_edit_text,null)
+        binding.emailEditLayout.boxBackgroundColor = errorBackground
+        binding.phoneEditLayout.boxBackgroundColor =  errorBackground
     }
 
     private fun cleanEditTextBackground() {
-        val edittextBackground = ResourcesCompat.getColor(resources, R.color.grey_edittext, null)
-        binding.emailEditLayout.boxBackgroundColor = edittextBackground
-        binding.phoneEditLayout.boxBackgroundColor = edittextBackground
+        val clearBackground  = resources.getColor(R.color.grey_edittext,null)
+        binding.emailEditLayout.boxBackgroundColor = clearBackground
+        binding.phoneEditLayout.boxBackgroundColor = clearBackground
     }
 
     private fun setMaskOnEditText(edittext: EditText) {

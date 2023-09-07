@@ -5,5 +5,4 @@ import java.io.Serializable
 
 data class OrderSerializeData(
     val reservationData:ReservationDataState,
-    val persons: MutableList<PersonRegistrationItem>
 ):Serializable

@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import com.example.hoteltest.NavigatorInterface
+import com.example.hoteltest.navigation.NavigatorInterface
 import com.example.hoteltest.order.presentation.ui.OrderFragment
 import com.example.hoteltest.reservation.presentation.ui.PersonRegistrationItem
 import com.example.hoteltest.reservation.presentation.ui.ReservationFragment
@@ -17,45 +17,43 @@ import javax.inject.Inject
 class ReservationViewModel @Inject constructor(private val savedStateHandle: SavedStateHandle) :
     ViewModel() {
 
-
-
     private val _personsList: MutableLiveData<MutableList<PersonRegistrationItem>> = MutableLiveData(mutableListOf(PersonRegistrationItem("Первый турист")))
 
     private val _reservationData:MutableLiveData<ReservationDataState> = MutableLiveData()
     val reservationData:LiveData<ReservationDataState> = _reservationData
 
-    private val _personInformationItems: MutableLiveData<List<PersonRegistrationItem>> = MutableLiveData(_personsList.value)
-    val personInformationItems: LiveData<List<PersonRegistrationItem>> = _personInformationItems
-
     init {
         val receivedData = savedStateHandle.get<Serializable>(ReservationFragment.RESERVATION_SCREEN_VALUE) as HotelRoomSerializeData
-        val fuelPrice = 9300//эти данные должны быть
-        val servicePrice = 2136//эти данные должны быть где-то получены
+        val fuelPrice = 9300//эти данные должны быть укащаны ранее по кейсу
+        val servicePrice = 2136//эти данные должны быть укащаны ранее по кейсу
         val tour = (receivedData.room.price?.toInt()?.minus((fuelPrice+servicePrice)))
-        _reservationData.value = ReservationDataState(
-            hotelname = receivedData.hotel.name,
-            price = receivedData.room.price,
-            pricePer = receivedData.room.pricePer,
-            peculiarities = receivedData.room.peculiarities,
-            roomname = receivedData.room.name,
-            adress = receivedData.hotel.adress,
-            priceForIt = receivedData.hotel.priceForIt,
-            ratingNumName = receivedData.hotel.ratingNumName,
-            description = receivedData.hotel.description,
-            fuel = fuelPrice,
-            service = servicePrice,
-            tour = tour,
-            fullPrice = receivedData.room.price,
-            phoneNumber = null,
-            email = null
+        _reservationData.value = _personsList.value?.let {
+            ReservationDataState(
+                hotelname = receivedData.hotel.name,
+                price = receivedData.room.price,
+                pricePer = receivedData.room.pricePer,
+                peculiarities = receivedData.room.peculiarities,
+                roomname = receivedData.room.name,
+                adress = receivedData.hotel.adress,
+                priceForIt = receivedData.hotel.priceForIt,
+                ratingNumName = receivedData.hotel.ratingNumName,
+                description = receivedData.hotel.description,
+                fuel = fuelPrice,
+                service = servicePrice,
+                tour = tour,
+                fullPrice = receivedData.room.price,
+                phoneNumber = null,
+                email = null,
+                personList = it
             )
+        }
     }
 
     fun addPerson() {
-        _personInformationItems.value?.size?.let {
-            if (it < 5) {
-                _personsList.value = _personsList.value?.plus(PersonRegistrationItem(itemLabel = "${_personInformationItems.value?.size?.toOrdinalNumeral()} турист")) ?.toMutableList()
-                _personInformationItems.value = _personsList.value
+        _reservationData.value?.let {
+            if (it.personList.size < 5) {
+                _personsList.value = _personsList.value?.plus(PersonRegistrationItem(itemLabel = "${it.personList.size.toOrdinalNumeral()} турист")) ?.toMutableList()
+                _reservationData.value = _personsList.value?.let { personList -> it.copy(personList = personList)}
             }
         }
         val fullPrice = (_personsList.value?.size?.let { _reservationData.value?.price?.toInt()?.times(it) })
@@ -76,9 +74,9 @@ class ReservationViewModel @Inject constructor(private val savedStateHandle: Sav
         newList?.let { _personsList.value = it }
     }
 
-    fun openOrderFragment(navigator:NavigatorInterface){
-        val orderData = OrderSerializeData(_reservationData.value!!, _personsList.value!!)
-        navigator.replaceScreen(OrderFragment.newInstance(orderData))
+    fun openOrderFragment(navigator: NavigatorInterface){
+        val orderData = _reservationData.value?.let { OrderSerializeData(it) }
+        orderData?.let { OrderFragment.newInstance(it) }?.let { navigator.replaceScreen(it) }
     }
 
     private fun Int.toOrdinalNumeral(): String {

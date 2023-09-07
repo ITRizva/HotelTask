@@ -5,7 +5,7 @@ import android.graphics.BitmapFactory
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.hoteltest.NavigatorInterface
+import com.example.hoteltest.navigation.NavigatorInterface
 import com.example.hoteltest.domain.usecases.GetHotelInformationUseCase
 import com.example.hoteltest.domain.usecases.GetImageUseCase
 import com.example.hoteltest.rooms.presentation.ui.RoomsFragment

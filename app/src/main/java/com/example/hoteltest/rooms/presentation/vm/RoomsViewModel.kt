@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import com.example.hoteltest.NavigatorInterface
+import com.example.hoteltest.navigation.NavigatorInterface
 import com.example.hoteltest.domain.usecases.GetImageUseCase
 import com.example.hoteltest.domain.usecases.GetRoomsInformationUseCase
 import com.example.hoteltest.hotel.presentation.vm.HotelSerializeData
@@ -44,7 +44,7 @@ class RoomsViewModel @Inject constructor(
         }
     }
 
-    fun openReservationFragment(navigator:NavigatorInterface,position:Int){
+    fun openReservationFragment(navigator: NavigatorInterface, position:Int){
         (_contentState.value as? RoomsViewModelState.RoomRecyclerContent)?.let {
             val room = it.rooms[position]
             val argumentsRoom = RoomSerializeData(

@@ -7,7 +7,7 @@
         android:color="@color/description" >
     </solid>
     <corners
-        android:bottomLeftRadius="16dp">
+        android:radius="16dp">
     </corners>
 
 </shape>

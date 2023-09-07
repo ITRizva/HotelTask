@@ -1,5 +1,7 @@
 package com.example.hoteltest.reservation.presentation.vm
 
+import com.example.hoteltest.reservation.presentation.ui.PersonRegistrationItem
+
 data class ReservationDataState(
     val hotelname:String?,
     val price:String?,
@@ -15,5 +17,6 @@ data class ReservationDataState(
     val service:Int? ,
     val fullPrice:String?,
     val phoneNumber:String?,
-    val email:String?
+    val email:String?,
+    val personList:List<PersonRegistrationItem>
 )

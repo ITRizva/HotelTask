@@ -12,9 +12,11 @@ kotlin {
         }
     }
 }
+
 android {
     namespace = "com.example.hoteltest"
     compileSdk = 34
+
 
     defaultConfig {
         applicationId = "com.example.hoteltest"
@@ -98,6 +100,7 @@ dependencies {
     implementation("com.tbuonomo:dotsindicator:5.0")
     implementation ("com.facebook.shimmer:shimmer:0.5.0")
     implementation ("com.github.bumptech.glide:glide:4.16.0")
+    implementation("com.github.terrakok:cicerone:7.1")
 
 
 

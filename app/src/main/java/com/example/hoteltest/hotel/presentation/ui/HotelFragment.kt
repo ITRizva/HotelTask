@@ -2,7 +2,6 @@ package com.example.hoteltest.hotel.presentation.ui
 
 import android.graphics.Typeface
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +12,7 @@ import com.example.hoteltest.binding.BaseFragment
 import com.example.hoteltest.databinding.FragmentHotelFragmentBinding
 import com.example.hoteltest.hotel.presentation.vm.HotelViewModel
 import com.example.hoteltest.hotel.presentation.vm.HotelViewModelState
-import com.example.hoteltest.navigator
+import com.example.hoteltest.navigation
 import com.google.android.material.chip.Chip
 
 import dagger.hilt.android.AndroidEntryPoint
