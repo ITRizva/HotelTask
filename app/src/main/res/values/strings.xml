@@ -7,4 +7,9 @@
     <string name="about_hotel">Об отеле</string>
     <string name="about_room">Подробнее о номере</string>
     <string name="privacy_text_reservation">Эти данные никому не передаются. После оплаты мы вышли чек на указанный вами номер и почту</string>
+    <string name="ruble_price">%1$s ₽</string>
+    <string name="ruble_button_price">Оплатить %1$s ₽</string>
+    <string name="ruble_price_of">от %1$s ₽</string>
+    <string name="num_email_error">Номер телефона или почта введене неверно</string>
+    <string name="order_description">Подтверждение заказа №%1$s может занять некоторое время (от 1 часа до суток). Как только мы получим ответ от туроператора, вам на почту придет уведомление.</string>
 </resources>

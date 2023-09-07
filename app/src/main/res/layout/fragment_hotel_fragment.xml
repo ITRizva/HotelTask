@@ -118,6 +118,10 @@
                                 app:selectedDotColor="@color/black"
                                 app:dotsSize="7dp"
                                 app:dotsSpacing="5dp"
+                                app:dotsStrokeWidth="2dp"
+                                app:stiffness="300"
+                                app:dampingRatio="0.5"
+                                app:dotsWidthFactor="1"
                                 />
 
                         </androidx.appcompat.widget.LinearLayoutCompat>
@@ -266,6 +270,7 @@
                     tools:layout_editor_absoluteX="16dp" />
 
                 <androidx.appcompat.widget.LinearLayoutCompat
+                    android:background="@drawable/description_round_background"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"

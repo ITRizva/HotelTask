@@ -379,7 +379,6 @@
                     app:layout_constraintTop_toBottomOf="@+id/constraintLayout10">
 
                     <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/fuel"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/sfprodisplaybold"
@@ -521,7 +520,7 @@
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <androidx.appcompat.widget.AppCompatTextView
-                            android:id="@+id/clear_price"
+                            android:id="@+id/tour"
                             android:layout_width="132dp"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/sfprodisplayregular"
@@ -550,6 +549,7 @@
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/fuelPrice"
                             android:layout_width="132dp"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/sfprodisplayregular"
@@ -579,7 +579,7 @@
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <androidx.appcompat.widget.AppCompatTextView
-                            android:id="@+id/service"
+                            android:id="@+id/servicePrice"
                             android:layout_width="132dp"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/sfprodisplayregular"

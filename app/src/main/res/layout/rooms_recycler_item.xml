@@ -47,6 +47,7 @@
                     app:selectedDotColor="@color/black"
                     app:dotsSize="7dp"
                     app:dotsSpacing="5dp"
+                    app:dotsWidthFactor="1"
                     />
             </androidx.appcompat.widget.LinearLayoutCompat>
         </androidx.constraintlayout.widget.ConstraintLayout>

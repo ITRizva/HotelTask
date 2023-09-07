@@ -52,7 +52,7 @@ class RoomsViewModel @Inject constructor(
                 price = room.price,
                 pricePer = room.pricePer,
                 peculiarities = room.peculiarities)
-            val roomData = ReservationSerializeData(argumentsRoom,argumentsHotel)
+            val roomData = HotelRoomSerializeData(argumentsRoom,argumentsHotel)
             val roomFragment = ReservationFragment.newInstance(roomData)
             navigator.replaceScreen(roomFragment)
         }
@@ -70,7 +70,7 @@ class RoomsViewModel @Inject constructor(
                             RoomsRecyclerItemData(
                                 id = it.id,
                                 name = it.name,
-                                price = "${it.price} ₽",
+                                price = it.price.toString(),
                                 pricePer = it.pricePer,
                                 peculiarities = it.peculiarities,
                                 images = it.imageUrls.map { url ->

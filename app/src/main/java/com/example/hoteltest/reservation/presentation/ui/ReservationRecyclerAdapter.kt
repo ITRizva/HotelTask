@@ -9,8 +9,8 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.hoteltest.databinding.PersonsRecyclerItemBinding
 
-class ReservationRecyclerAdapter(private val personLambda: (Int, PersonRecyclerItem) -> Unit) :
-    ListAdapter<PersonRecyclerItem, PersonHolder>(diffCallback) {
+class ReservationRecyclerAdapter(private val personLambda: (Int, PersonRegistrationItem) -> Unit) :
+    ListAdapter<PersonRegistrationItem, PersonHolder>(diffCallback) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PersonHolder =
         PersonHolder.createList(parent)
 
@@ -33,7 +33,7 @@ class PersonHolder(private val binding: PersonsRecyclerItemBinding) :
         )
     }
 
-    fun drawItem(personInfo: PersonRecyclerItem, personLambda: (Int, PersonRecyclerItem) -> Unit) {
+    fun drawItem(personInfo: PersonRegistrationItem, personLambda: (Int, PersonRegistrationItem) -> Unit) {
         binding.numLabel.text = personInfo.itemLabel
         binding.personArrow.setOnClickListener {
             if (binding.personLayoutInfo.visibility == View.VISIBLE) {
@@ -68,10 +68,10 @@ class PersonHolder(private val binding: PersonsRecyclerItemBinding) :
 
     private fun sendAllEditText(
         binding: PersonsRecyclerItemBinding,
-        personLambda: (Int, PersonRecyclerItem) -> Unit,
+        personLambda: (Int, PersonRegistrationItem) -> Unit,
         position: Int
     ) {
-        val personData = PersonRecyclerItem(
+        val personData = PersonRegistrationItem(
             itemLabel = binding.numLabel.text.toString(),
             name = binding.nameEditText.text.toString(),
             surName = binding.surnameEditText.toString(),
@@ -86,15 +86,15 @@ class PersonHolder(private val binding: PersonsRecyclerItemBinding) :
 
 }
 
-val diffCallback = object : DiffUtil.ItemCallback<PersonRecyclerItem>() {
+val diffCallback = object : DiffUtil.ItemCallback<PersonRegistrationItem>() {
     override fun areContentsTheSame(
-        oldItem: PersonRecyclerItem,
-        newItem: PersonRecyclerItem
+        oldItem: PersonRegistrationItem,
+        newItem: PersonRegistrationItem
     ): Boolean = oldItem == newItem
 
 
     override fun areItemsTheSame(
-        oldItem: PersonRecyclerItem,
-        newItem: PersonRecyclerItem
+        oldItem: PersonRegistrationItem,
+        newItem: PersonRegistrationItem
     ): Boolean = oldItem == newItem
 }

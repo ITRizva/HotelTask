@@ -1,6 +1,6 @@
 package com.example.hoteltest.reservation.presentation.ui
 
-data class PersonRecyclerItem(
+data class PersonRegistrationItem(
     val itemLabel:String,
     val name:String? = null,
     val surName:String? = null,

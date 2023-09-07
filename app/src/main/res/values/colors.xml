@@ -20,4 +20,5 @@
     <color name="dots_color">#38000038</color>
     <color name="shimer_grey">#dddddd</color>
     <color name="invalid_edit_text">#26EB5757</color>
+    <color name="description">#FBFBFC</color>
 </resources>

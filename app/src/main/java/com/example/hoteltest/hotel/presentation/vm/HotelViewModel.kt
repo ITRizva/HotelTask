@@ -67,7 +67,7 @@ class HotelViewModel @Inject constructor(
                             id = hotelInformation.id,
                             name = hotelInformation.name,
                             adress = hotelInformation.adress,
-                            minimalPrice = "от ${hotelInformation.minimalPrice} ₽",
+                            minimalPrice = hotelInformation.minimalPrice.toString(),
                             priceForIt = hotelInformation.priceForIt,
                             ratingNumName = "${hotelInformation.rating} ${hotelInformation.ratingName}",
                             description = hotelInformation.aboutTheHotel.description,

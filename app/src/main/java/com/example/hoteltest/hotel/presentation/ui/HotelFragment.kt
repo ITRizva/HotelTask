@@ -44,11 +44,11 @@ class HotelFragment : BaseFragment<FragmentHotelFragmentBinding>() {
                 binding.mainContent.visibility = View.VISIBLE
                 binding.hotelName.text = information.name
                 binding.hotelAdress.text = information.adress
-                binding.minimalPrice.text = information.minimalPrice.toString()
+                binding.minimalPrice.text = String.format(resources.getString(R.string.ruble_price_of),information.minimalPrice)
                 binding.hotelRating.text = information.ratingNumName
                 binding.hotelAbout.text = information.description
                 binding.viewPager2.adapter = ViewPagerAdapter(information.imageList)
-                binding.viewPager2.let { binding?.dots?.attachTo(it) }
+                binding.viewPager2.let { binding.dots.attachTo(it) }
                 binding.priceFor.text = information.priceForIt
                 information.peculiarities.forEach {
                     binding.chipGroup.addView(createChip(it))

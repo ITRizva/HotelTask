@@ -8,9 +8,10 @@ import androidx.compose.ui.unit.dp
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.hoteltest.R
 import com.example.hoteltest.databinding.RoomsRecyclerItemBinding
 import com.example.hoteltest.hotel.presentation.ui.ViewPagerAdapter
-import com.google.android.material.R
+
 import com.google.android.material.chip.Chip
 
 class RoomsInformationAdapter(private val context: Context?,private val openReservationLambda:(Int) -> Unit) : ListAdapter<RoomsRecyclerItemData, RoomHolder>(
@@ -33,7 +34,7 @@ class RoomHolder(private val binding: RoomsRecyclerItemBinding) : RecyclerView.V
         binding.roomName.text = roomInfo.name
         binding.viewPager2.adapter = ViewPagerAdapter(roomInfo.images)
         binding.viewPager2.let{ binding.dots.attachTo(it) }
-        binding.minimalPrice.text = roomInfo.price.toString()
+        binding.minimalPrice.text = context?.resources?.let { String.format(it.getString(R.string.ruble_price),roomInfo.price) }
         binding.priceFor.text = roomInfo.pricePer
         roomInfo.peculiarities?.forEach{
             binding.chipGroup.addView(createChip(it,context))
@@ -45,7 +46,7 @@ class RoomHolder(private val binding: RoomsRecyclerItemBinding) : RecyclerView.V
     }
 
     private fun createChip(text: String, context: Context?): Chip {
-        val chip = Chip(context, null, R.style.Widget_MaterialComponents_Chip_Choice)
+        val chip = Chip(context, null, com.google.android.material.R.style.Widget_MaterialComponents_Chip_Choice)
         chip.shapeAppearanceModel = chip.shapeAppearanceModel.toBuilder().setAllCornerSizes(15.dp.value).build()
         chip.setChipBackgroundColorResource(com.example.hoteltest.R.color.light_grey)
         context?.resources?.let { chip.setTextColor(it.getColor(com.example.hoteltest.R.color.standard_grey, null)) }
