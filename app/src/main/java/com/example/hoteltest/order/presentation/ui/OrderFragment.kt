@@ -37,6 +37,9 @@ class OrderFragment : BaseFragment<FragmentOrderFragmentBinding>() {
         viewModel.orderData.observe(viewLifecycleOwner){
             binding.orderDescription.text = String.format(resources.getString(R.string.order_description,it.hashCode()))
         }
+        binding.superButton.setOnClickListener {
+            viewModel.openHotelFragment()
+        }
     }
 
 }

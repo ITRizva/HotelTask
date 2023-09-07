@@ -27,13 +27,13 @@ class NavigatorImp: NavigatorInterface{
     override fun addScreen(data: Serializable, fragmentKey: String?) {
         when(fragmentKey){
             RoomsFragment.ROOM_SCREEN_VALUE ->{
-                launchAddFragment(RoomsFragment.newInstance(data))
+                launchAddFragment(RoomsFragment.newInstance(data),fragmentKey)
             }
             ReservationFragment.RESERVATION_SCREEN_VALUE->{
-                launchAddFragment(ReservationFragment.newInstance(data))
+                launchAddFragment(ReservationFragment.newInstance(data),fragmentKey)
             }
             OrderFragment.ORDER_FRAGMENT_VALUE->{
-                launchAddFragment(OrderFragment.newInstance(data))
+                launchAddFragment(OrderFragment.newInstance(data),fragmentKey)
             }
         }
     }
@@ -41,13 +41,13 @@ class NavigatorImp: NavigatorInterface{
     override fun replaceScreen(data: Serializable, fragmentKey:String?) {
         when(fragmentKey){
             RoomsFragment.ROOM_SCREEN_VALUE ->{
-                launchReplaceFragment(RoomsFragment.newInstance(data))
+                launchReplaceFragment(RoomsFragment.newInstance(data),fragmentKey)
             }
             ReservationFragment.RESERVATION_SCREEN_VALUE->{
-                launchReplaceFragment(ReservationFragment.newInstance(data))
+                launchReplaceFragment(ReservationFragment.newInstance(data),fragmentKey)
             }
             OrderFragment.ORDER_FRAGMENT_VALUE->{
-                launchReplaceFragment(OrderFragment.newInstance(data))
+                launchReplaceFragment(OrderFragment.newInstance(data),fragmentKey)
             }
         }
     }
@@ -56,10 +56,10 @@ class NavigatorImp: NavigatorInterface{
         fragmentManager?.popBackStack(tag,FragmentManager.POP_BACK_STACK_INCLUSIVE)
 
     }
-    private fun launchAddFragment(fragment: Fragment) {
-        fragmentManager?.beginTransaction()?.add(R.id.mainContainer, fragment)?.addToBackStack(fragment.tag)?.commit()
+    private fun launchAddFragment(fragment: Fragment,key:String) {
+        fragmentManager?.beginTransaction()?.add(R.id.mainContainer, fragment)?.addToBackStack(key)?.commit()
     }
-    private fun launchReplaceFragment(fragment:Fragment){
-        fragmentManager?.beginTransaction()?.replace(R.id.mainContainer,fragment)?.addToBackStack(fragment.tag)?.commit()
+    private fun launchReplaceFragment(fragment:Fragment,key:String){
+        fragmentManager?.beginTransaction()?.replace(R.id.mainContainer,fragment)?.addToBackStack(key)?.commit()
     }
 }
