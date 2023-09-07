@@ -33,15 +33,3 @@ class NavigatorImp: NavigatorInterface{
         TODO("Not yet implemented")
     }
 }
-class NavigationHolder() {
-    private val navigator = NavigatorImp()
-    fun getNavigator():NavigatorInterface = navigator
-
-    fun attachActivity(activity:AppCompatActivity){
-        navigator.attachActivity(activity)
-    }
-    fun detachActivity(){
-        navigator.detachActivity()
-    }
-
-}

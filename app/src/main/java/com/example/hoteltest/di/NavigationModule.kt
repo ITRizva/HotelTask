@@ -16,5 +16,5 @@ object NavigationModule {
     @Provides
     fun provideNavigationHolder():NavigationHolder = NavigationHolder()
 
-    fun provideNavigationInterface(navigationHolder: NavigationHolder):NavigatorInterface = NavigatorImp()
+    fun provideNavigationInterface(navigationHolder: NavigationHolder):NavigatorInterface = navigationHolder.getNavigator()
 }
