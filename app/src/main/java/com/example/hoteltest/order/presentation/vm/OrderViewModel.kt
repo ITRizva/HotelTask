@@ -23,6 +23,6 @@ class OrderViewModel @Inject constructor(private val savedStateHandle: SavedStat
     }
 
     fun openHotelFragment(){
-        RoomsFragment().tag?.let { navigator.popUntil(it) }
+        navigator.popUntil(RoomsFragment.ROOM_SCREEN_VALUE)
     }
 }
