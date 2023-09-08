@@ -93,7 +93,41 @@ class ReservationViewModel @Inject constructor(
     fun openOrderFragment() {
         _reservationData.value = _personsList.value?.let { _reservationData.value?.copy(personList = it) }
         _event.value = checkReservationData()
+        if(_event.value is ReservationEvents.Success){
+            val orderData = _reservationData.value?.let { OrderSerializeData(it) }
+            orderData?.let { navigator.replaceScreen(it, OrderFragment.ORDER_FRAGMENT_VALUE) }
+        }
     }
+
+    private fun checkReservationData():ReservationEvents{
+        val phoneNum = _reservationData.value?.phoneNumber
+        val email = _reservationData.value?.email
+        if(phoneNum == null || email == null) return ReservationEvents.EmailPhoneError(context.resources.getString(R.string.num_email_error))
+        if(!phoneNum.isPhoneValid() || !email.isEmailValid()) return ReservationEvents.EmailPhoneError(context.resources.getString(R.string.num_email_error))
+        if(!checkPersonList()) return ReservationEvents.PersonInformationError(context.resources.getString(R.string.person_error))
+        return ReservationEvents.Success
+    }
+
+    private fun checkPersonList():Boolean{
+        _reservationData.value?.personList?.forEach {
+            if(!it.fieldIsNotNull()) return false
+        }
+        return true
+    }
+
+    private fun PersonRegistrationItem.fieldIsNotNull():Boolean{
+        if(name.isNullOrEmpty()) return false
+        if(surName.isNullOrEmpty()) return false
+        if(bornDate.isNullOrEmpty()) return false
+        if(citizenShip.isNullOrEmpty()) return false
+        if(numIntPassport.isNullOrEmpty()) return false
+        if(durationIntPassport.isNullOrEmpty()) return false
+        return true
+    }
+
+    private fun String.isEmailValid(): Boolean = !TextUtils.isEmpty(this) && android.util.Patterns.EMAIL_ADDRESS.matcher(this).matches()
+
+    private fun String.isPhoneValid(): Boolean = Regex(""".\d..\d{3}..\d{3}-\d{2}-\d{2}""").matches(this)
 
     private fun Int.toOrdinalNumeral(): String {
         return when (this) {
@@ -104,39 +138,5 @@ class ReservationViewModel @Inject constructor(
             4 -> "Пятый"
             else -> {""}
         }
-    }
-
-    private fun checkReservationData():ReservationEvents{
-        val phoneNum = _reservationData.value?.phoneNumber
-        val email = _reservationData.value?.email
-        if(phoneNum == null || email == null) return ReservationEvents.EmailPhoneError(context.resources.getString(R.string.num_email_error))
-        if(!phoneNum.isPhoneValid() || !email.isEmailValid()) return ReservationEvents.EmailPhoneError(context.resources.getString(R.string.num_email_error))
-        if(!checkPersonList()) return ReservationEvents.PersonInformationError("Данные о пользователе введены неверно")
-        val orderData = _reservationData.value?.let { OrderSerializeData(it) }
-        orderData?.let { navigator.replaceScreen(it, OrderFragment.ORDER_FRAGMENT_VALUE) }
-        return ReservationEvents.Success
-    }
-
-    private fun checkPersonList():Boolean{
-        _reservationData.value?.personList?.forEach {
-            if(!it.fieldIsNotNull()){
-                return false
-            }
-        }
-        return true
-    }
-
-    private fun String.isEmailValid(): Boolean = !TextUtils.isEmpty(this) && android.util.Patterns.EMAIL_ADDRESS.matcher(this).matches()
-
-    private fun String.isPhoneValid(): Boolean = Regex(""".\d..\d{3}..\d{3}-\d{2}-\d{2}""").matches(this)
-
-    private fun PersonRegistrationItem.fieldIsNotNull():Boolean{
-        if(name == null) return false
-        if(surName== null) return false
-        if(bornDate== null) return false
-        if(citizenShip == null) return false
-        if(numIntPassport == null) return false
-        if(durationIntPassport== null) return false
-        return true
     }
 }

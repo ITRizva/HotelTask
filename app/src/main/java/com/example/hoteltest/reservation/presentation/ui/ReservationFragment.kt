@@ -115,7 +115,7 @@ class ReservationFragment : BaseFragment<FragmentReservationFragmentBinding>()  
     private fun showEvent(event:ReservationEvents){
         when(event){
             is ReservationEvents.EmailPhoneError -> setErrorEditTextBackground(event.errorText)
-            is ReservationEvents.PersonInformationError -> setErrorEditTextBackground("Person")
+            is ReservationEvents.PersonInformationError -> Toast.makeText(activity, event.errorText, Toast.LENGTH_SHORT).show()
             is ReservationEvents.Success -> {}
         }
     }
