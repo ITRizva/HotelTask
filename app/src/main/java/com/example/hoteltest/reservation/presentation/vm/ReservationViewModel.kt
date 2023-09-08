@@ -1,5 +1,6 @@
 package com.example.hoteltest.reservation.presentation.vm
 
+import android.text.TextUtils
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
@@ -99,4 +100,8 @@ class ReservationViewModel @Inject constructor(
             else -> {""}
         }
     }
+
+    private fun String.isEmailValid(): Boolean = !TextUtils.isEmpty(this) && android.util.Patterns.EMAIL_ADDRESS.matcher(this).matches()
+
+    private fun String.isPhoneValid(): Boolean = Regex(""".\d..\d{3}..\d{3}-\d{2}-\d{2}""").matches(this)
 }
