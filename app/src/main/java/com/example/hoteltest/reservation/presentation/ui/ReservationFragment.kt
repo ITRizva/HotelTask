@@ -116,7 +116,7 @@ class ReservationFragment : BaseFragment<FragmentReservationFragmentBinding>()  
         when(event){
             is ReservationEvents.EmailPhoneError -> setErrorEditTextBackground(event.errorText)
             is ReservationEvents.PersonInformationError -> setErrorEditTextBackground("Person")
-            is ReservationEvents.Success -> setErrorEditTextBackground("event.errorText")
+            is ReservationEvents.Success -> {}
         }
     }
 }

@@ -107,9 +107,11 @@ class ReservationViewModel @Inject constructor(
     }
 
     private fun checkReservationData():ReservationEvents{
-        if(_reservationData.value?.phoneNumber?.isPhoneValid()?.not() == true && _reservationData.value?.email?.isEmailValid()?.not() == true) return ReservationEvents.EmailPhoneError(context.resources.getString(R.string.num_email_error))
-
-        if(!checkPersonList()) return ReservationEvents.PersonInformationError("Данные о пользователе введены неверно")
+        val phoneNum = _reservationData.value?.phoneNumber
+        val email = _reservationData.value?.email
+        if(phoneNum == null || email == null) return ReservationEvents.EmailPhoneError(context.resources.getString(R.string.num_email_error))
+        if(!phoneNum.isPhoneValid() || !email.isEmailValid()) return ReservationEvents.EmailPhoneError(context.resources.getString(R.string.num_email_error))
+        //if(checkPersonList()) return ReservationEvents.PersonInformationError("Данные о пользователе введены неверно")
         val orderData = _reservationData.value?.let { OrderSerializeData(it) }
         orderData?.let { navigator.replaceScreen(it, OrderFragment.ORDER_FRAGMENT_VALUE) }
         return ReservationEvents.Success
