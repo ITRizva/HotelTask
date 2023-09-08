@@ -1,31 +1,37 @@
 package com.example.hoteltest.reservation.presentation.vm
 
+import android.content.Context
 import android.text.TextUtils
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
+import com.example.hoteltest.R
 import com.example.hoteltest.navigation.NavigatorInterface
 import com.example.hoteltest.order.presentation.ui.OrderFragment
 import com.example.hoteltest.reservation.presentation.ui.PersonRegistrationItem
 import com.example.hoteltest.reservation.presentation.ui.ReservationFragment
 import com.example.hoteltest.rooms.presentation.vm.HotelRoomSerializeData
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import java.io.Serializable
 import javax.inject.Inject
 
 @HiltViewModel
 class ReservationViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
-    private val navigator: NavigatorInterface
+    private val navigator: NavigatorInterface,
+    @ApplicationContext private val context: Context
 ) :
     ViewModel() {
 
-    private val _personsList: MutableLiveData<MutableList<PersonRegistrationItem>> =
-        MutableLiveData(mutableListOf(PersonRegistrationItem("Первый турист")))
+    private val _personsList: MutableLiveData<MutableList<PersonRegistrationItem>> = MutableLiveData(mutableListOf(PersonRegistrationItem("Первый турист")))
 
     private val _reservationData: MutableLiveData<ReservationDataState> = MutableLiveData()
     val reservationData: LiveData<ReservationDataState> = _reservationData
+
+    private val _event:MutableLiveData<ReservationEvents> = MutableLiveData()
+    val event:LiveData<ReservationEvents> = _event
 
     init {
         val receivedData =
@@ -86,8 +92,7 @@ class ReservationViewModel @Inject constructor(
 
     fun openOrderFragment() {
         _reservationData.value = _personsList.value?.let { _reservationData.value?.copy(personList = it) }
-        val orderData = _reservationData.value?.let { OrderSerializeData(it) }
-        orderData?.let { navigator.replaceScreen(it, OrderFragment.ORDER_FRAGMENT_VALUE) }
+        _event.value = checkReservationData()
     }
 
     private fun Int.toOrdinalNumeral(): String {
@@ -101,7 +106,32 @@ class ReservationViewModel @Inject constructor(
         }
     }
 
+    private fun checkReservationData():ReservationEvents{
+        if(_reservationData.value?.phoneNumber?.isPhoneValid()?.not() == true && _reservationData.value?.email?.isEmailValid()?.not() == true) return ReservationEvents.EmailPhoneError(context.resources.getString(R.string.num_email_error))
+
+        if(!checkPersonList()) return ReservationEvents.PersonInformationError("Данные о пользователе введены неверно")
+        val orderData = _reservationData.value?.let { OrderSerializeData(it) }
+        orderData?.let { navigator.replaceScreen(it, OrderFragment.ORDER_FRAGMENT_VALUE) }
+        return ReservationEvents.Success
+    }
+
+    private fun checkPersonList():Boolean{
+        _reservationData.value?.personList?.forEach {
+            if(!it.fieldIsNotNull()){
+                return false
+            }
+        }
+        return true
+    }
+
     private fun String.isEmailValid(): Boolean = !TextUtils.isEmpty(this) && android.util.Patterns.EMAIL_ADDRESS.matcher(this).matches()
 
     private fun String.isPhoneValid(): Boolean = Regex(""".\d..\d{3}..\d{3}-\d{2}-\d{2}""").matches(this)
+
+    private fun PersonRegistrationItem.fieldIsNotNull():Boolean{
+        for(field in this.javaClass.declaredFields){
+            if(field != null) return false
+        }
+        return true
+    }
 }

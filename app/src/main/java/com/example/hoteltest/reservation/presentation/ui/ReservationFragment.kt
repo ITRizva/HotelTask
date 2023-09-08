@@ -14,6 +14,7 @@ import com.example.hoteltest.R
 import com.example.hoteltest.binding.BaseFragment
 import com.example.hoteltest.databinding.FragmentReservationFragmentBinding
 import com.example.hoteltest.reservation.presentation.vm.ReservationDataState
+import com.example.hoteltest.reservation.presentation.vm.ReservationEvents
 import com.example.hoteltest.reservation.presentation.vm.ReservationViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import ru.tinkoff.decoro.MaskImpl
@@ -55,6 +56,9 @@ class ReservationFragment : BaseFragment<FragmentReservationFragmentBinding>()  
             recycler.submitList(it.personList)
             renderScreen(it)
         }
+        viewModel.event.observe(viewLifecycleOwner){
+            showEvent(it)
+        }
 
         binding.addPerson.setOnClickListener {
             viewModel.addPerson()
@@ -68,13 +72,7 @@ class ReservationFragment : BaseFragment<FragmentReservationFragmentBinding>()  
             viewModel.setPhone(it.toString())
         }
         binding.payButton.setOnClickListener {
-            if (binding.emailEditText.text.toString().isEmailValid() && binding.phoneEditText.text.toString().trim().isPhoneValid()
-            ) {
-                viewModel.openOrderFragment()
-            } else {
-                Toast.makeText(activity, resources.getString(R.string.num_email_error), Toast.LENGTH_SHORT).show()
-                setErrorEditTextBackground()
-            }
+            viewModel.openOrderFragment()
         }
     }
 
@@ -92,10 +90,11 @@ class ReservationFragment : BaseFragment<FragmentReservationFragmentBinding>()  
         binding.fullPrice.text = String.format(resources.getString(R.string.ruble_price),state.fullPrice.toString())
         binding.payButton.text = String.format(resources.getString(R.string.ruble_button_price),state.fullPrice.toString())
     }
-    private fun setErrorEditTextBackground() {
+    private fun setErrorEditTextBackground(text:String) {
         val errorBackground = resources.getColor(R.color.invalid_edit_text,null)
         binding.emailEditLayout.boxBackgroundColor = errorBackground
         binding.phoneEditLayout.boxBackgroundColor =  errorBackground
+        Toast.makeText(activity, text, Toast.LENGTH_SHORT).show()
     }
 
     private fun cleanEditTextBackground() {
@@ -113,7 +112,11 @@ class ReservationFragment : BaseFragment<FragmentReservationFragmentBinding>()  
         edittext.setText("+")
     }
 
-    private fun String.isEmailValid(): Boolean = !TextUtils.isEmpty(this) && android.util.Patterns.EMAIL_ADDRESS.matcher(this).matches()
-
-    private fun String.isPhoneValid(): Boolean = Regex(""".\d..\d{3}..\d{3}-\d{2}-\d{2}""").matches(this)
+    private fun showEvent(event:ReservationEvents){
+        when(event){
+            is ReservationEvents.EmailPhoneError -> setErrorEditTextBackground(event.errorText)
+            is ReservationEvents.PersonInformationError -> setErrorEditTextBackground("Person")
+            is ReservationEvents.Success -> setErrorEditTextBackground("event.errorText")
+        }
+    }
 }
