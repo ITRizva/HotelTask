@@ -111,7 +111,7 @@ class ReservationViewModel @Inject constructor(
         val email = _reservationData.value?.email
         if(phoneNum == null || email == null) return ReservationEvents.EmailPhoneError(context.resources.getString(R.string.num_email_error))
         if(!phoneNum.isPhoneValid() || !email.isEmailValid()) return ReservationEvents.EmailPhoneError(context.resources.getString(R.string.num_email_error))
-        //if(checkPersonList()) return ReservationEvents.PersonInformationError("Данные о пользователе введены неверно")
+        if(!checkPersonList()) return ReservationEvents.PersonInformationError("Данные о пользователе введены неверно")
         val orderData = _reservationData.value?.let { OrderSerializeData(it) }
         orderData?.let { navigator.replaceScreen(it, OrderFragment.ORDER_FRAGMENT_VALUE) }
         return ReservationEvents.Success
@@ -131,9 +131,12 @@ class ReservationViewModel @Inject constructor(
     private fun String.isPhoneValid(): Boolean = Regex(""".\d..\d{3}..\d{3}-\d{2}-\d{2}""").matches(this)
 
     private fun PersonRegistrationItem.fieldIsNotNull():Boolean{
-        for(field in this.javaClass.declaredFields){
-            if(field != null) return false
-        }
+        if(name == null) return false
+        if(surName== null) return false
+        if(bornDate== null) return false
+        if(citizenShip == null) return false
+        if(numIntPassport == null) return false
+        if(durationIntPassport== null) return false
         return true
     }
 }
