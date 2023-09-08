@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.hoteltest.navigation.NavigatorInterface
 import com.example.hoteltest.domain.usecases.GetImageUseCase
 import com.example.hoteltest.domain.usecases.GetRoomsInformationUseCase
@@ -34,7 +35,6 @@ class RoomsViewModel @Inject constructor(
     val hotelName:LiveData<String> = _hotelName
 
     private val argumentsHotel = savedStateHandle.get<Serializable>(RoomsFragment.ROOM_SCREEN_VALUE) as HotelSerializeData
-    private val connectionScope = CoroutineScope(Dispatchers.IO)
 
     fun loadContent() {
         _hotelName.value = argumentsHotel.name
@@ -60,7 +60,7 @@ class RoomsViewModel @Inject constructor(
 
     private fun updateData() {
         _contentState.value = RoomsViewModelState.Loading
-        connectionScope.launch {
+        viewModelScope.launch {
             try {
                 val roomsInformation = getRoomsInformation.execute()
                 val roomList: ArrayList<RoomsRecyclerItemData> = arrayListOf()
