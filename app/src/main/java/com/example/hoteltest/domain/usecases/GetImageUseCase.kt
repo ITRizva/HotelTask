@@ -6,7 +6,5 @@ import okhttp3.ResponseBody
 import javax.inject.Inject
 
 class GetImageUseCase @Inject constructor(private val repository:ImageRepositoryReceiver) {
-    suspend fun execute(url:String):ResponseBody?{
-        return repository.getImage(url)
-    }
+    suspend fun execute(url:String):ResponseBody? = repository.getImage(url)
 }

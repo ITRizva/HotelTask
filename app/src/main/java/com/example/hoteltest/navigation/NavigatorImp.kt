@@ -12,6 +12,7 @@ import java.io.Serializable
 class NavigatorImp: NavigatorInterface{
 
     private var fragmentManager:FragmentManager? = null
+
     fun attachActivity(activity:AppCompatActivity){
         fragmentManager = activity.supportFragmentManager
     }
@@ -56,9 +57,11 @@ class NavigatorImp: NavigatorInterface{
         fragmentManager?.popBackStack(tag,FragmentManager.POP_BACK_STACK_INCLUSIVE)
 
     }
+
     private fun launchAddFragment(fragment: Fragment,key:String) {
         fragmentManager?.beginTransaction()?.add(R.id.mainContainer, fragment)?.addToBackStack(key)?.commit()
     }
+
     private fun launchReplaceFragment(fragment:Fragment,key:String){
         fragmentManager?.beginTransaction()?.replace(R.id.mainContainer,fragment)?.addToBackStack(key)?.commit()
     }

@@ -9,29 +9,18 @@ import com.example.hoteltest.databinding.HotelViewpagerItemBinding
 class ViewPagerAdapter(private val images: List<Bitmap>?) :
     RecyclerView.Adapter<ViewPagerViewHolder>() {
 
-    override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int
-    ): ViewPagerViewHolder {
-        return ViewPagerViewHolder.createList(parent)
-    }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewPagerViewHolder = ViewPagerViewHolder.createList(parent)
 
-    override fun onBindViewHolder(
-        holder: ViewPagerViewHolder,
-        position: Int
-    ) {
+    override fun onBindViewHolder(holder: ViewPagerViewHolder, position: Int) {
         val currentImage = images?.get(position)
         currentImage?.let { holder.drawItem(it) }
     }
 
-    override fun getItemCount(): Int {
-        return images?.size ?: 0
-    }
-
+    override fun getItemCount(): Int = images?.size ?: 0
 }
 
-class ViewPagerViewHolder(private val binding: HotelViewpagerItemBinding) :
-    RecyclerView.ViewHolder(binding.root) {
+class ViewPagerViewHolder(private val binding: HotelViewpagerItemBinding) : RecyclerView.ViewHolder(binding.root) {
+
     companion object {
         fun createList(list: ViewGroup): ViewPagerViewHolder = ViewPagerViewHolder(
             HotelViewpagerItemBinding.inflate(
@@ -41,8 +30,8 @@ class ViewPagerViewHolder(private val binding: HotelViewpagerItemBinding) :
             )
         )
     }
+
     fun drawItem(image:Bitmap){
         binding.hotelImage.setImageBitmap(image)
     }
-
 }

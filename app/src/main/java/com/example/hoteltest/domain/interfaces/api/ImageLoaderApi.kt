@@ -7,6 +7,7 @@ import retrofit2.http.Streaming
 import retrofit2.http.Url
 
 interface ImageLoaderApi {
+
     @Streaming
     @GET
     suspend fun getImage(@Url imageUrl:String):Response<ResponseBody>

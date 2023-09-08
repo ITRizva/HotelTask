@@ -10,16 +10,13 @@ import androidx.viewbinding.ViewBinding
 abstract class BaseFragment<T: ViewBinding>: Fragment() {
 
     private var _binding:T? = null
+
     protected val binding:T
         get() = requireNotNull(_binding){"binding never null"}
 
     abstract fun getBinding(inflater:LayoutInflater,container:ViewGroup?):T
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = getBinding(inflater,container)
         return binding.root
     }

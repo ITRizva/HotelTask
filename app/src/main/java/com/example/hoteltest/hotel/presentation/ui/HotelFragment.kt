@@ -30,46 +30,50 @@ class HotelFragment : BaseFragment<FragmentHotelFragmentBinding>() {
             renderScreen(it)
         }
         binding.roomsButton.setOnClickListener {
-            viewModel.openRoomScreen()
+            viewModel.openRoomsFragment()
         }
     }
 
+    private fun renderScreen(state: HotelViewModelState) {
+        when (state) {
+            is HotelViewModelState.HotelFragmentContent -> showHotelInformation(state)
 
-    private fun renderScreen(information: HotelViewModelState) {
-        when (information) {
-            is HotelViewModelState.HotelFragmentContent -> {
-                binding.progressLayout.visibility = View.GONE
-                binding.mainContent.visibility = View.VISIBLE
-                binding.hotelName.text = information.name
-                binding.hotelAdress.text = information.adress
-                binding.minimalPrice.text = String.format(resources.getString(R.string.ruble_price_of),information.minimalPrice)
-                binding.hotelRating.text = information.ratingNumName
-                binding.hotelAbout.text = information.description
-                binding.viewPager2.adapter = ViewPagerAdapter(information.imageList)
-                binding.viewPager2.let { binding.dots.attachTo(it) }
-                binding.priceFor.text = information.priceForIt
-                information.peculiarities.forEach {
-                    binding.chipGroup.addView(createChip(it))
-                }
-            }
+            is HotelViewModelState.Error -> showError(state)
 
-            is HotelViewModelState.Error -> {
-                binding.mainContent.visibility = View.GONE
-                binding.progressLayout.visibility = View.VISIBLE
-                binding.error.visibility = View.VISIBLE
-                binding.progressCircle.visibility = View.GONE
-                binding.error.text = information.massage
-            }
-
-            is HotelViewModelState.Loading -> {
-                binding.mainContent.visibility = View.GONE
-                binding.error.visibility = View.GONE
-                binding.progressLayout.visibility = View.VISIBLE
-                binding.progressCircle.visibility = View.VISIBLE
-            }
+            is HotelViewModelState.Loading -> showLoading()
 
             else -> {}
         }
+    }
+
+    private fun showHotelInformation(state: HotelViewModelState.HotelFragmentContent){
+        binding.progressLayout.visibility = View.GONE
+        binding.mainContent.visibility = View.VISIBLE
+        binding.hotelName.text = state.name
+        binding.hotelAdress.text = state.adress
+        binding.minimalPrice.text = String.format(resources.getString(R.string.ruble_price_of),state.minimalPrice)
+        binding.hotelRating.text = state.ratingNumName
+        binding.hotelAbout.text = state.description
+        binding.viewPager2.adapter = ViewPagerAdapter(state.imageList)
+        binding.viewPager2.let { binding.dots.attachTo(it) }
+        binding.priceFor.text = state.priceForIt
+        state.peculiarities.forEach {
+            binding.chipGroup.addView(createChip(it))}
+    }
+
+    private fun showLoading(){
+        binding.mainContent.visibility = View.GONE
+        binding.error.visibility = View.GONE
+        binding.progressLayout.visibility = View.VISIBLE
+        binding.progressCircle.visibility = View.VISIBLE
+    }
+
+    private fun showError(state:HotelViewModelState.Error){
+        binding.mainContent.visibility = View.GONE
+        binding.progressLayout.visibility = View.VISIBLE
+        binding.error.visibility = View.VISIBLE
+        binding.progressCircle.visibility = View.GONE
+        binding.error.text = state.massage
     }
 
     private fun createChip(text: String): Chip {

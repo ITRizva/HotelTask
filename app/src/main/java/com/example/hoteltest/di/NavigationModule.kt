@@ -12,9 +12,11 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object NavigationModule {
+
     @Singleton
     @Provides
     fun provideNavigationHolder():NavigationHolder = NavigationHolder()
+
     @Provides
     fun provideNavigationInterface(navigationHolder: NavigationHolder):NavigatorInterface = navigationHolder.getNavigator()
 }

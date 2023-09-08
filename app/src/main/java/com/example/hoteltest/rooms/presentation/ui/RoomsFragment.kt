@@ -6,8 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.hoteltest.R
 import com.example.hoteltest.binding.BaseFragment
 import com.example.hoteltest.databinding.FragmentRoomsFragmentBinding
+import com.example.hoteltest.hotel.presentation.ui.ViewPagerAdapter
+import com.example.hoteltest.hotel.presentation.vm.HotelViewModelState
 import com.example.hoteltest.rooms.presentation.vm.RoomsViewModel
 import com.example.hoteltest.rooms.presentation.vm.RoomsViewModelState
 import dagger.hilt.android.AndroidEntryPoint
@@ -37,43 +40,48 @@ class RoomsFragment : BaseFragment<FragmentRoomsFragmentBinding>() {
         super.onViewCreated(view, savedInstanceState)
         binding.roomRecycler.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         binding.roomRecycler.adapter = recycler
+
         viewModel.loadContent()
+
         viewModel.contentState.observe(viewLifecycleOwner){
             renderScreen(it)
         }
+
         viewModel.hotelName.observe(viewLifecycleOwner){
             binding.hotelName.text = it
         }
-
     }
 
 
-    private fun renderScreen(information: RoomsViewModelState){
-        when(information){
-            is RoomsViewModelState.RoomRecyclerContent ->{
-                recycler.submitList(information.rooms)
-                binding.progressCircle.visibility = View.GONE
-                binding.error.visibility = View.GONE
-                binding.roomRecycler.visibility = View.VISIBLE
-            }
+    private fun renderScreen(state: RoomsViewModelState){
+        when(state){
+            is RoomsViewModelState.RoomRecyclerContent -> showRoomsInformation(state)
 
-            is RoomsViewModelState.Error -> {
-                binding.error.text = information.massage
-                binding.progressCircle.visibility = View.GONE
-                binding.error.visibility = View.VISIBLE
-                binding.roomRecycler.visibility = View.GONE
-            }
+            is RoomsViewModelState.Error -> showError(state)
 
-            is RoomsViewModelState.Loading -> {
-                binding.progressCircle.visibility = View.VISIBLE
-                binding.error.visibility = View.GONE
-                binding.roomRecycler.visibility = View.GONE
-            }
+            is RoomsViewModelState.Loading -> showLoading()
 
             else -> {}
         }
     }
 
+    private fun showRoomsInformation(state: RoomsViewModelState.RoomRecyclerContent){
+        recycler.submitList(state.rooms)
+        binding.progressCircle.visibility = View.GONE
+        binding.error.visibility = View.GONE
+        binding.roomRecycler.visibility = View.VISIBLE
+    }
 
+    private fun showLoading(){
+        binding.progressCircle.visibility = View.VISIBLE
+        binding.error.visibility = View.GONE
+        binding.roomRecycler.visibility = View.GONE
+    }
 
+    private fun showError(state: RoomsViewModelState.Error){
+        binding.error.text = state.massage
+        binding.progressCircle.visibility = View.GONE
+        binding.error.visibility = View.VISIBLE
+        binding.roomRecycler.visibility = View.GONE
+    }
 }

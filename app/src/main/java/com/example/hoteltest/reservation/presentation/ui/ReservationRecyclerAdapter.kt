@@ -11,26 +11,18 @@ import com.example.hoteltest.databinding.PersonsRecyclerItemBinding
 
 class ReservationRecyclerAdapter(private val personLambda: (Int, PersonRegistrationItem) -> Unit) :
     ListAdapter<PersonRegistrationItem, PersonHolder>(diffCallback) {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PersonHolder =
-        PersonHolder.createList(parent)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PersonHolder = PersonHolder.createList(parent)
 
     override fun onBindViewHolder(holder: PersonHolder, position: Int) {
         holder.drawItem(getItem(position), personLambda)
         onViewRecycled(holder)
     }
-
 }
 
 class PersonHolder(private val binding: PersonsRecyclerItemBinding) :
     RecyclerView.ViewHolder(binding.root) {
     companion object {
-        fun createList(list: ViewGroup): PersonHolder = PersonHolder(
-            PersonsRecyclerItemBinding.inflate(
-                (LayoutInflater.from(list.context)),
-                list,
-                false
-            )
-        )
+        fun createList(list: ViewGroup): PersonHolder = PersonHolder(PersonsRecyclerItemBinding.inflate((LayoutInflater.from(list.context)), list, false))
     }
 
     fun drawItem(personInfo: PersonRegistrationItem, personLambda: (Int, PersonRegistrationItem) -> Unit) {
@@ -82,8 +74,6 @@ class PersonHolder(private val binding: PersonsRecyclerItemBinding) :
         )
         personLambda(position, personData)
     }
-
-
 }
 
 val diffCallback = object : DiffUtil.ItemCallback<PersonRegistrationItem>() {

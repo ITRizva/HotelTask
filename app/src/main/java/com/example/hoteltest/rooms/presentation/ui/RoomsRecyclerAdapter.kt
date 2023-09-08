@@ -17,19 +17,20 @@ import com.google.android.material.chip.Chip
 class RoomsInformationAdapter(private val context: Context?,private val openReservationLambda:(Int) -> Unit) : ListAdapter<RoomsRecyclerItemData, RoomHolder>(
     diffCallback
 ) {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RoomHolder =
-        RoomHolder.createList(parent)
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RoomHolder = RoomHolder.createList(parent)
 
     override fun onBindViewHolder(holder: RoomHolder, position: Int) {
-        holder.drawItem(getItem(position), context,openReservationLambda)
+        holder.drawItem(getItem(position), context, openReservationLambda)
         onViewRecycled(holder)
     }
-
 }
 class RoomHolder(private val binding: RoomsRecyclerItemBinding) : RecyclerView.ViewHolder(binding.root){
+
     companion object {
         fun createList(list: ViewGroup): RoomHolder = RoomHolder(RoomsRecyclerItemBinding.inflate((LayoutInflater.from(list.context)), list, false))
     }
+
     fun drawItem(roomInfo: RoomsRecyclerItemData, context: Context?, openReservationFragment: (Int) -> Unit) {
         binding.roomName.text = roomInfo.name
         binding.viewPager2.adapter = ViewPagerAdapter(roomInfo.images)
@@ -42,7 +43,6 @@ class RoomHolder(private val binding: RoomsRecyclerItemBinding) : RecyclerView.V
         binding.buttonToReservation.setOnClickListener {
             openReservationFragment(adapterPosition)
         }
-
     }
 
     private fun createChip(text: String, context: Context?): Chip {
@@ -54,8 +54,6 @@ class RoomHolder(private val binding: RoomsRecyclerItemBinding) : RecyclerView.V
         chip.text = text
         return chip
     }
-
-
 }
 
 val diffCallback = object : DiffUtil.ItemCallback<RoomsRecyclerItemData>() {
@@ -63,7 +61,6 @@ val diffCallback = object : DiffUtil.ItemCallback<RoomsRecyclerItemData>() {
         oldItem: RoomsRecyclerItemData,
         newItem: RoomsRecyclerItemData
     ): Boolean = oldItem == newItem
-
 
     override fun areItemsTheSame(
         oldItem: RoomsRecyclerItemData,

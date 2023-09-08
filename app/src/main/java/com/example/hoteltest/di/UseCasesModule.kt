@@ -34,7 +34,6 @@ object UseCasesModule {
     @Singleton
     fun provideImageRepositoryReceiver(repositoryImp:HotelInformationRepositoryImp):ImageRepositoryReceiver = repositoryImp
 
-
     @Provides
     @Singleton
     fun provideGetHotelInformationUseCase(repository:HotelRepositoryReceiver):GetHotelInformationUseCase = GetHotelInformationUseCase(repository)

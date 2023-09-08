@@ -19,11 +19,9 @@ class OrderFragment : BaseFragment<FragmentOrderFragmentBinding>() {
 
     companion object {
         const val ORDER_FRAGMENT_VALUE = "ORDER_VALUE"
-
         @JvmStatic
         fun newInstance(value: Serializable): OrderFragment {
-            val transitValue: Bundle =
-                Bundle().apply { putSerializable(ORDER_FRAGMENT_VALUE, value) }
+            val transitValue: Bundle = Bundle().apply { putSerializable(ORDER_FRAGMENT_VALUE, value) }
             val fragment = OrderFragment()
             fragment.arguments = transitValue
             return fragment
@@ -41,5 +39,4 @@ class OrderFragment : BaseFragment<FragmentOrderFragmentBinding>() {
             viewModel.openHotelFragment()
         }
     }
-
 }

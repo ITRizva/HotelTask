@@ -27,14 +27,7 @@ class ReservationFragment : BaseFragment<FragmentReservationFragmentBinding>() {
 
     private val viewModel by viewModels<ReservationViewModel>()
 
-    private val recycler: ReservationRecyclerAdapter by lazy {
-        ReservationRecyclerAdapter { position: Int, personData: PersonRegistrationItem ->
-            viewModel.writePersonData(
-                position,
-                personData
-            )
-        }
-    }
+    private val recycler: ReservationRecyclerAdapter by lazy { ReservationRecyclerAdapter { position: Int, personData: PersonRegistrationItem -> viewModel.writePersonData(position, personData) }}
 
     companion object {
         const val RESERVATION_SCREEN_VALUE = "RESERVATION_VALUE"
@@ -49,14 +42,11 @@ class ReservationFragment : BaseFragment<FragmentReservationFragmentBinding>() {
         }
     }
 
-    override fun getBinding(
-        inflater: LayoutInflater,
-        container: ViewGroup?
-    ): FragmentReservationFragmentBinding =
-        FragmentReservationFragmentBinding.inflate(inflater, container, false)
+    override fun getBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentReservationFragmentBinding = FragmentReservationFragmentBinding.inflate(inflater, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         setMaskOnEditText(binding.phoneEditText)
         binding.recyclerPersons.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         binding.recyclerPersons.adapter = recycler

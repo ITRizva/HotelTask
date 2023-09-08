@@ -14,20 +14,24 @@ import java.io.Serializable
 import javax.inject.Inject
 
 @HiltViewModel
-class ReservationViewModel @Inject constructor(private val savedStateHandle: SavedStateHandle,
-                                               private val navigator:NavigatorInterface) :
+class ReservationViewModel @Inject constructor(
+    private val savedStateHandle: SavedStateHandle,
+    private val navigator: NavigatorInterface
+) :
     ViewModel() {
 
-    private val _personsList: MutableLiveData<MutableList<PersonRegistrationItem>> = MutableLiveData(mutableListOf(PersonRegistrationItem("Первый турист")))
+    private val _personsList: MutableLiveData<MutableList<PersonRegistrationItem>> =
+        MutableLiveData(mutableListOf(PersonRegistrationItem("Первый турист")))
 
-    private val _reservationData:MutableLiveData<ReservationDataState> = MutableLiveData()
-    val reservationData:LiveData<ReservationDataState> = _reservationData
+    private val _reservationData: MutableLiveData<ReservationDataState> = MutableLiveData()
+    val reservationData: LiveData<ReservationDataState> = _reservationData
 
     init {
-        val receivedData = savedStateHandle.get<Serializable>(ReservationFragment.RESERVATION_SCREEN_VALUE) as HotelRoomSerializeData
+        val receivedData =
+            savedStateHandle.get<Serializable>(ReservationFragment.RESERVATION_SCREEN_VALUE) as HotelRoomSerializeData
         val fuelPrice = 9300//эти данные должны быть укащаны ранее по кейсу
         val servicePrice = 2136//эти данные должны быть укащаны ранее по кейсу
-        val tour = (receivedData.room.price?.toInt()?.minus((fuelPrice+servicePrice)))
+        val tour = (receivedData.room.price?.toInt()?.minus((fuelPrice + servicePrice)))
         _reservationData.value = _personsList.value?.let {
             ReservationDataState(
                 hotelname = receivedData.hotel.name,
@@ -53,20 +57,24 @@ class ReservationViewModel @Inject constructor(private val savedStateHandle: Sav
     fun addPerson() {
         _reservationData.value?.let {
             if (it.personList.size < 5) {
-                _personsList.value = _personsList.value?.plus(PersonRegistrationItem(itemLabel = "${it.personList.size.toOrdinalNumeral()} турист")) ?.toMutableList()
-                _reservationData.value = _personsList.value?.let { personList -> it.copy(personList = personList)}
+                _personsList.value =
+                    _personsList.value?.plus(PersonRegistrationItem(itemLabel = "${it.personList.size.toOrdinalNumeral()} турист"))
+                        ?.toMutableList()
+                _reservationData.value =
+                    _personsList.value?.let { personList -> it.copy(personList = personList) }
             }
         }
-        val fullPrice = (_personsList.value?.size?.let { _reservationData.value?.price?.toInt()?.times(it) })
-        _reservationData.value = _reservationData.value?.copy(fullPrice = fullPrice.toString() )
+        val fullPrice =
+            (_personsList.value?.size?.let { _reservationData.value?.price?.toInt()?.times(it) })
+        _reservationData.value = _reservationData.value?.copy(fullPrice = fullPrice.toString())
     }
 
-    fun setEmail(email:String){
+    fun setEmail(email: String) {
         _reservationData.value = _reservationData.value?.copy(email = email)
     }
 
-    fun setPhone(phoneNumber:String){
-        _reservationData.value = _reservationData.value?.copy(phoneNumber = phoneNumber )
+    fun setPhone(phoneNumber: String) {
+        _reservationData.value = _reservationData.value?.copy(phoneNumber = phoneNumber)
     }
 
     fun writePersonData(position: Int, PersonRegistrationItem: PersonRegistrationItem) {
@@ -75,9 +83,10 @@ class ReservationViewModel @Inject constructor(private val savedStateHandle: Sav
         newList?.let { _personsList.value = it }
     }
 
-    fun openOrderFragment(){
-        val orderData = _reservationData.value?.let { OrderSerializeData(it)}
-        orderData?.let { navigator.replaceScreen(it,OrderFragment.ORDER_FRAGMENT_VALUE) }
+    fun openOrderFragment() {
+        _reservationData.value = _personsList.value?.let { _reservationData.value?.copy(personList = it) }
+        val orderData = _reservationData.value?.let { OrderSerializeData(it) }
+        orderData?.let { navigator.replaceScreen(it, OrderFragment.ORDER_FRAGMENT_VALUE) }
     }
 
     private fun Int.toOrdinalNumeral(): String {
@@ -87,11 +96,7 @@ class ReservationViewModel @Inject constructor(private val savedStateHandle: Sav
             2 -> "Третий"
             3 -> "Четвертый"
             4 -> "Пятый"
-            else -> {
-                ""
-            }
+            else -> {""}
         }
     }
-
-
 }
