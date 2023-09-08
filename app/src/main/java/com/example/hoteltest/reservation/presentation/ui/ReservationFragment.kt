@@ -23,7 +23,7 @@ import java.io.Serializable
 
 
 @AndroidEntryPoint
-class ReservationFragment : BaseFragment<FragmentReservationFragmentBinding>() {
+class ReservationFragment : BaseFragment<FragmentReservationFragmentBinding>()  {
 
     private val viewModel by viewModels<ReservationViewModel>()
 
