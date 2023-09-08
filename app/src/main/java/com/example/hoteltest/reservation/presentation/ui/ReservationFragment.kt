@@ -53,10 +53,9 @@ class ReservationFragment : BaseFragment<FragmentReservationFragmentBinding>() {
 
         viewModel.reservationData.observe(viewLifecycleOwner) {
             recycler.submitList(it.personList)
-        }
-        viewModel.reservationData.observe(viewLifecycleOwner) {
             renderScreen(it)
         }
+
         binding.addPerson.setOnClickListener {
             viewModel.addPerson()
         }
