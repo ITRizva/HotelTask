@@ -99,20 +99,29 @@ class ReservationViewModel @Inject constructor(
         }
     }
 
+    fun setErrorOnPerson(position:Int){
+        position
+        val list = _reservationData.value?.personList
+        val element = list?.get(position)?.copy(isCorrect = false)
+        element?.let { list.set(position, it) }
+        list?.let{_reservationData.value = _reservationData.value?.copy( personList = list)}
+    }
+
     private fun checkReservationData():ReservationEvents{
         val phoneNum = _reservationData.value?.phoneNumber
         val email = _reservationData.value?.email
         if(phoneNum == null || email == null) return ReservationEvents.EmailPhoneError(context.resources.getString(R.string.num_email_error))
         if(!phoneNum.isPhoneValid() || !email.isEmailValid()) return ReservationEvents.EmailPhoneError(context.resources.getString(R.string.num_email_error))
-        if(!checkPersonList()) return ReservationEvents.PersonInformationError(context.resources.getString(R.string.person_error))
+        val positionError = checkPersonList()
+        if(positionError != -1) return ReservationEvents.PersonInformationError(context.resources.getString(R.string.person_error),positionError)
         return ReservationEvents.Success
     }
 
-    private fun checkPersonList():Boolean{
-        _reservationData.value?.personList?.forEach {
-            if(!it.fieldIsNotNull()) return false
+    private fun checkPersonList():Int{
+        _reservationData.value?.personList?.forEachIndexed { index, personRegistrationItem ->
+            if(!personRegistrationItem.fieldIsNotNull()) return index
         }
-        return true
+        return -1
     }
 
     private fun PersonRegistrationItem.fieldIsNotNull():Boolean{

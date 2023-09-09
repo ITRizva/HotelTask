@@ -61,6 +61,7 @@
 
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/name_edit_text_layout"
             android:hint="Имя"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -97,6 +98,7 @@
             app:boxStrokeWidth="0dp"
             app:boxStrokeWidthFocused="0dp"
             app:hintTextColor="@color/standard_grey"
+            android:id="@+id/surname_edit_text_layout"
             >
 
             <com.google.android.material.textfield.TextInputEditText
@@ -120,6 +122,7 @@
             app:boxStrokeWidthFocused="0dp"
             app:hintTextColor="@color/standard_grey"
             android:hint="Дата рождения"
+            android:id="@+id/born_date_edit_text_layout"
             >
 
             <com.google.android.material.textfield.TextInputEditText
@@ -142,6 +145,7 @@
             app:boxStrokeWidthFocused="0dp"
             app:hintTextColor="@color/standard_grey"
             android:hint="Гражданство"
+            android:id="@+id/citizenship_edit_text_layout"
             >
 
             <com.google.android.material.textfield.TextInputEditText
@@ -164,6 +168,7 @@
             app:boxStrokeWidthFocused="0dp"
             app:hintTextColor="@color/standard_grey"
             android:hint="Номер загранпаспорта"
+            android:id="@+id/intpassport_edit_text_layout"
             >
 
             <com.google.android.material.textfield.TextInputEditText
@@ -186,6 +191,7 @@
             app:boxStrokeWidthFocused="0dp"
             app:hintTextColor="@color/standard_grey"
             android:hint="Срок действия загранпаспорта"
+            android:id="@+id/duration_intpass_edit_text_layout"
             >
 
             <com.google.android.material.textfield.TextInputEditText

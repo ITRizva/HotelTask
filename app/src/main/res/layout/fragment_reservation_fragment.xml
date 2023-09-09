@@ -399,6 +399,7 @@
                         app:hintTextColor="@color/standard_grey"
                         android:hint="Номер телефона"
                         android:id="@+id/phone_edit_layout"
+                        app:boxBackgroundColor="@color/grey_edittext"
 
                         >
 
@@ -422,6 +423,7 @@
                         app:hintTextColor="@color/standard_grey"
                         android:hint="Почта"
                         android:id="@+id/email_edit_layout"
+                        app:boxBackgroundColor="@color/grey_edittext"
                         >
 
                         <com.google.android.material.textfield.TextInputEditText

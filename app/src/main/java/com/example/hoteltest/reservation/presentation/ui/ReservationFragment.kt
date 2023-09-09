@@ -28,7 +28,7 @@ class ReservationFragment : BaseFragment<FragmentReservationFragmentBinding>()  
 
     private val viewModel by viewModels<ReservationViewModel>()
 
-    private val recycler: ReservationRecyclerAdapter by lazy { ReservationRecyclerAdapter { position: Int, personData: PersonRegistrationItem -> viewModel.writePersonData(position, personData) }}
+    private val recycler: ReservationRecyclerAdapter by lazy { ReservationRecyclerAdapter(context) { position: Int, personData: PersonRegistrationItem -> viewModel.writePersonData(position, personData) }}
 
     companion object {
         const val RESERVATION_SCREEN_VALUE = "RESERVATION_VALUE"
@@ -115,7 +115,10 @@ class ReservationFragment : BaseFragment<FragmentReservationFragmentBinding>()  
     private fun showEvent(event:ReservationEvents){
         when(event){
             is ReservationEvents.EmailPhoneError -> setErrorEditTextBackground(event.errorText)
-            is ReservationEvents.PersonInformationError -> Toast.makeText(activity, event.errorText, Toast.LENGTH_SHORT).show()
+            is ReservationEvents.PersonInformationError -> {
+                Toast.makeText(activity, event.errorText, Toast.LENGTH_SHORT).show()
+                viewModel.setErrorOnPerson(event.position)
+            }
             is ReservationEvents.Success -> {}
         }
     }

@@ -1,5 +1,6 @@
 package com.example.hoteltest.reservation.presentation.ui
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,14 +8,18 @@ import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.hoteltest.R
 import com.example.hoteltest.databinding.PersonsRecyclerItemBinding
 
-class ReservationRecyclerAdapter(private val personLambda: (Int, PersonRegistrationItem) -> Unit) :
+class ReservationRecyclerAdapter(private val context:Context?,private val personLambda: (Int, PersonRegistrationItem) -> Unit) :
     ListAdapter<PersonRegistrationItem, PersonHolder>(diffCallback) {
+
+    private var currentViewList:PersonHolder? = null
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PersonHolder = PersonHolder.createList(parent)
 
     override fun onBindViewHolder(holder: PersonHolder, position: Int) {
-        holder.drawItem(getItem(position), personLambda)
+        holder.drawItem(context,getItem(position), personLambda)
         onViewRecycled(holder)
     }
 }
@@ -25,8 +30,17 @@ class PersonHolder(private val binding: PersonsRecyclerItemBinding) :
         fun createList(list: ViewGroup): PersonHolder = PersonHolder(PersonsRecyclerItemBinding.inflate((LayoutInflater.from(list.context)), list, false))
     }
 
-    fun drawItem(personInfo: PersonRegistrationItem, personLambda: (Int, PersonRegistrationItem) -> Unit) {
+    fun drawItem(context: Context?,personInfo: PersonRegistrationItem, personLambda: (Int, PersonRegistrationItem) -> Unit) {
         binding.numLabel.text = personInfo.itemLabel
+        val clearBackground  = context?.resources?.getColor(R.color.grey_edittext,null)
+        if (clearBackground != null) {
+            binding.nameEditTextLayout.boxBackgroundColor = clearBackground
+            binding.surnameEditTextLayout.boxBackgroundColor = clearBackground
+            binding.bornDateEditTextLayout.boxBackgroundColor = clearBackground
+            binding.citizenshipEditTextLayout.boxBackgroundColor = clearBackground
+            binding.intpassportEditTextLayout.boxBackgroundColor = clearBackground
+            binding.durationIntpassEditTextLayout.boxBackgroundColor = clearBackground
+        }
         binding.personArrow.setOnClickListener {
             if (binding.personLayoutInfo.visibility == View.VISIBLE) {
                 binding.personLayoutInfo.visibility = View.GONE
@@ -54,8 +68,17 @@ class PersonHolder(private val binding: PersonsRecyclerItemBinding) :
         binding.durationIntpassEditText.addTextChangedListener {
             sendAllEditText(binding, personLambda, adapterPosition)
         }
-
-
+        if(!personInfo.isCorrect){
+            val errorBackground = context?.resources?.getColor(R.color.invalid_edit_text,null)
+            if (errorBackground != null) {
+                binding.nameEditTextLayout.boxBackgroundColor = errorBackground
+                binding.surnameEditTextLayout.boxBackgroundColor = errorBackground
+                binding.bornDateEditTextLayout.boxBackgroundColor = errorBackground
+                binding.citizenshipEditTextLayout.boxBackgroundColor = errorBackground
+                binding.intpassportEditTextLayout.boxBackgroundColor = errorBackground
+                binding.durationIntpassEditTextLayout.boxBackgroundColor = errorBackground
+            }
+        }
     }
 
     private fun sendAllEditText(

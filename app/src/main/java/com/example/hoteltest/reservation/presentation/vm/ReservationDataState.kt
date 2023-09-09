@@ -19,5 +19,5 @@ data class ReservationDataState(
     val fullPrice:String?,
     val phoneNumber:String?,
     val email:String?,
-    val personList:List<PersonRegistrationItem>
+    val personList:MutableList<PersonRegistrationItem>
 ):Serializable
