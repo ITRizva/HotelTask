@@ -4,12 +4,18 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.hoteltest.R
 import com.example.hoteltest.databinding.PersonsRecyclerItemBinding
+import ru.tinkoff.decoro.MaskImpl
+import ru.tinkoff.decoro.parser.UnderscoreDigitSlotsParser
+import ru.tinkoff.decoro.watchers.FormatWatcher
+import ru.tinkoff.decoro.watchers.MaskFormatWatcher
+
 
 class ReservationRecyclerAdapter(private val context:Context?,private val personLambda: (Int, PersonRegistrationItem) -> Unit) :
     ListAdapter<PersonRegistrationItem, PersonHolder>(diffCallback) {
@@ -32,6 +38,9 @@ class PersonHolder(private val binding: PersonsRecyclerItemBinding) :
 
     fun drawItem(context: Context?,personInfo: PersonRegistrationItem, personLambda: (Int, PersonRegistrationItem) -> Unit) {
         binding.numLabel.text = personInfo.itemLabel
+        setDateMasK(binding.bornDateEditText)
+        setPassportNumMusk(binding.intpassportEditText)
+        setValidPeriodPassportMask(binding.durationIntpassEditText)
         val clearBackground  = context?.resources?.getColor(R.color.grey_edittext,null)
         if (clearBackground != null) {
             clearBackgroundBox(clearBackground)
@@ -89,6 +98,23 @@ class PersonHolder(private val binding: PersonsRecyclerItemBinding) :
         }
     }
 
+    private fun setDateMasK(editText: EditText){
+        val slots = UnderscoreDigitSlotsParser().parseSlots("__.__.____")
+        val formatWatcher: FormatWatcher = MaskFormatWatcher(MaskImpl.createTerminated(slots))
+        formatWatcher.installOn(editText)
+    }
+
+    private fun setValidPeriodPassportMask(editText: EditText){
+        val slots = UnderscoreDigitSlotsParser().parseSlots("__.__.____-__.__.____")
+        val formatWatcher: FormatWatcher = MaskFormatWatcher(MaskImpl.createTerminated(slots))
+        formatWatcher.installOn(editText)
+    }
+
+    private fun setPassportNumMusk(editText: EditText){
+        val slots = UnderscoreDigitSlotsParser().parseSlots("___________")
+        val formatWatcher: FormatWatcher = MaskFormatWatcher(MaskImpl.createTerminated(slots))
+        formatWatcher.installOn(editText)
+    }
     private fun setErrorBackgroundBox(errorBackground:Int){
             binding.nameEditTextLayout.boxBackgroundColor = errorBackground
             binding.surnameEditTextLayout.boxBackgroundColor = errorBackground
