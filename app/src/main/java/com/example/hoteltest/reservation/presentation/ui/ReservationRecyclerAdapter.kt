@@ -38,6 +38,14 @@ class PersonHolder(private val binding: PersonsRecyclerItemBinding) :
 
     fun drawItem(context: Context?,personInfo: PersonRegistrationItem, personLambda: (Int, PersonRegistrationItem) -> Unit) {
         binding.numLabel.text = personInfo.itemLabel
+        //Восстанавливаю введенный текст заранее
+        binding.nameEditText.setText(personInfo.name)
+        binding.surnameEditText.setText(personInfo.surName)
+        binding.bornDateEditText.setText(personInfo.bornDate)
+        binding.citizenshipEditText.setText(personInfo.citizenShip)
+        binding.intpassportEditText.setText(personInfo.numIntPassport)
+        binding.durationIntpassEditText.setText(personInfo.durationIntPassport)
+
         setDateMasK(binding.bornDateEditText)
         setPassportNumMusk(binding.intpassportEditText)
         setValidPeriodPassportMask(binding.durationIntpassEditText)
@@ -141,11 +149,11 @@ class PersonHolder(private val binding: PersonsRecyclerItemBinding) :
         val personData = PersonRegistrationItem(
             itemLabel = binding.numLabel.text.toString(),
             name = binding.nameEditText.text.toString(),
-            surName = binding.surnameEditText.toString(),
-            bornDate = binding.bornDateEditText.toString(),
-            citizenShip = binding.citizenshipEditText.toString(),
-            numIntPassport = binding.intpassportEditText.toString(),
-            durationIntPassport = binding.durationIntpassEditText.toString()
+            surName = binding.surnameEditText.text.toString(),
+            bornDate = binding.bornDateEditText.text.toString(),
+            citizenShip = binding.citizenshipEditText.text.toString(),
+            numIntPassport = binding.intpassportEditText.text.toString(),
+            durationIntPassport = binding.durationIntpassEditText.text.toString()
         )
         personLambda(position, personData)
     }

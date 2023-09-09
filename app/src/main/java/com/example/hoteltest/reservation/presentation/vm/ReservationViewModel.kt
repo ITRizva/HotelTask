@@ -33,6 +33,9 @@ class ReservationViewModel @Inject constructor(
     private val _event:MutableLiveData<ReservationEvents> = MutableLiveData()
     val event:LiveData<ReservationEvents> = _event
 
+    companion object{
+        const val VALID_DATA = -1
+    }
     init {
         val receivedData =
             savedStateHandle.get<Serializable>(ReservationFragment.RESERVATION_SCREEN_VALUE) as HotelRoomSerializeData
@@ -112,30 +115,38 @@ class ReservationViewModel @Inject constructor(
         if(phoneNum == null || email == null) return ReservationEvents.EmailPhoneError(context.resources.getString(R.string.num_email_error))
         if(!phoneNum.isPhoneValid() || !email.isEmailValid()) return ReservationEvents.EmailPhoneError(context.resources.getString(R.string.num_email_error))
         val positionError = checkPersonList()
-        if(positionError != -1) return ReservationEvents.PersonInformationError(context.resources.getString(R.string.person_error),positionError)
+        if(positionError != VALID_DATA) return ReservationEvents.PersonInformationError(context.resources.getString(R.string.person_error),positionError)
         return ReservationEvents.Success
     }
 
     private fun checkPersonList():Int{
         _reservationData.value?.personList?.forEachIndexed { index, personRegistrationItem ->
-            if(!personRegistrationItem.fieldIsNotNull()) return index
+            if(!personRegistrationItem.fieldIsNotCorrect()) return index
         }
-        return -1
+        return VALID_DATA
     }
 
-    private fun PersonRegistrationItem.fieldIsNotNull():Boolean{
-        if(name.isNullOrEmpty()) return false
-        if(surName.isNullOrEmpty()) return false
-        if(bornDate.isNullOrEmpty()) return false
-        if(citizenShip.isNullOrEmpty()) return false
-        if(numIntPassport.isNullOrEmpty()) return false
-        if(durationIntPassport.isNullOrEmpty()) return false
+    private fun PersonRegistrationItem.fieldIsNotCorrect():Boolean{
+        if(name?.isWordValid() != true) return false
+        if(surName?.isWordValid() != true) return false
+        if(bornDate?.isBornDateValid() != true) return false
+        if(citizenShip?.isWordValid() != true) return false
+        if(numIntPassport?.isNumIntPassport() !=true) return false
+        if(durationIntPassport?.isPeriodIntPassportValid() != true) return false
         return true
     }
 
     private fun String.isEmailValid(): Boolean = !TextUtils.isEmpty(this) && android.util.Patterns.EMAIL_ADDRESS.matcher(this).matches()
 
     private fun String.isPhoneValid(): Boolean = Regex(""".\d..\d{3}..\d{3}-\d{2}-\d{2}""").matches(this)
+
+    private fun String.isWordValid():Boolean = Regex("""[а-яА-ЯёЁa-zA-Z]+""").matches(this)
+
+    private fun String.isBornDateValid():Boolean = Regex("""[0-3][0-9].[0-1][0-9].[0-9]{4}""").matches(this)
+
+    private fun String.isNumIntPassport():Boolean = Regex("""\d+""").matches(this)
+
+    private fun String.isPeriodIntPassportValid():Boolean = Regex("""[0-3][0-9].[0-1][0-9].[0-9]{4}-[0-3][0-9].[0-1][0-9].[0-9]{4}""").matches(this)
 
     private fun Int.toOrdinalNumeral(): String {
         return when (this) {
