@@ -34,12 +34,7 @@ class PersonHolder(private val binding: PersonsRecyclerItemBinding) :
         binding.numLabel.text = personInfo.itemLabel
         val clearBackground  = context?.resources?.getColor(R.color.grey_edittext,null)
         if (clearBackground != null) {
-            binding.nameEditTextLayout.boxBackgroundColor = clearBackground
-            binding.surnameEditTextLayout.boxBackgroundColor = clearBackground
-            binding.bornDateEditTextLayout.boxBackgroundColor = clearBackground
-            binding.citizenshipEditTextLayout.boxBackgroundColor = clearBackground
-            binding.intpassportEditTextLayout.boxBackgroundColor = clearBackground
-            binding.durationIntpassEditTextLayout.boxBackgroundColor = clearBackground
+            clearBackgroundBox(clearBackground)
         }
         binding.personArrow.setOnClickListener {
             if (binding.personLayoutInfo.visibility == View.VISIBLE) {
@@ -52,33 +47,64 @@ class PersonHolder(private val binding: PersonsRecyclerItemBinding) :
         }
         binding.nameEditText.addTextChangedListener {
             sendAllEditText(binding, personLambda, adapterPosition)
+            if (clearBackground != null) {
+                clearBackgroundBox(clearBackground)
+            }
         }
         binding.surnameEditText.addTextChangedListener {
             sendAllEditText(binding, personLambda, adapterPosition)
+            if (clearBackground != null) {
+                clearBackgroundBox(clearBackground)
+            }
         }
         binding.bornDateEditText.addTextChangedListener {
             sendAllEditText(binding, personLambda, adapterPosition)
+            if (clearBackground != null) {
+                clearBackgroundBox(clearBackground)
+            }
         }
         binding.citizenshipEditText.addTextChangedListener {
             sendAllEditText(binding, personLambda, adapterPosition)
+            if (clearBackground != null) {
+                clearBackgroundBox(clearBackground)
+            }
         }
         binding.intpassportEditText.addTextChangedListener {
             sendAllEditText(binding, personLambda, adapterPosition)
+            if (clearBackground != null) {
+                clearBackgroundBox(clearBackground)
+            }
         }
         binding.durationIntpassEditText.addTextChangedListener {
             sendAllEditText(binding, personLambda, adapterPosition)
+            if (clearBackground != null) {
+                clearBackgroundBox(clearBackground)
+            }
         }
         if(!personInfo.isCorrect){
             val errorBackground = context?.resources?.getColor(R.color.invalid_edit_text,null)
             if (errorBackground != null) {
-                binding.nameEditTextLayout.boxBackgroundColor = errorBackground
-                binding.surnameEditTextLayout.boxBackgroundColor = errorBackground
-                binding.bornDateEditTextLayout.boxBackgroundColor = errorBackground
-                binding.citizenshipEditTextLayout.boxBackgroundColor = errorBackground
-                binding.intpassportEditTextLayout.boxBackgroundColor = errorBackground
-                binding.durationIntpassEditTextLayout.boxBackgroundColor = errorBackground
+                setErrorBackgroundBox(errorBackground)
             }
         }
+    }
+
+    private fun setErrorBackgroundBox(errorBackground:Int){
+            binding.nameEditTextLayout.boxBackgroundColor = errorBackground
+            binding.surnameEditTextLayout.boxBackgroundColor = errorBackground
+            binding.bornDateEditTextLayout.boxBackgroundColor = errorBackground
+            binding.citizenshipEditTextLayout.boxBackgroundColor = errorBackground
+            binding.intpassportEditTextLayout.boxBackgroundColor = errorBackground
+            binding.durationIntpassEditTextLayout.boxBackgroundColor = errorBackground
+    }
+
+    private fun clearBackgroundBox(clearBackground:Int){
+        binding.nameEditTextLayout.boxBackgroundColor = clearBackground
+        binding.surnameEditTextLayout.boxBackgroundColor = clearBackground
+        binding.bornDateEditTextLayout.boxBackgroundColor = clearBackground
+        binding.citizenshipEditTextLayout.boxBackgroundColor = clearBackground
+        binding.intpassportEditTextLayout.boxBackgroundColor = clearBackground
+        binding.durationIntpassEditTextLayout.boxBackgroundColor = clearBackground
     }
 
     private fun sendAllEditText(

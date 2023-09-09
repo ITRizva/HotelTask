@@ -100,7 +100,6 @@ class ReservationViewModel @Inject constructor(
     }
 
     fun setErrorOnPerson(position:Int){
-        position
         val list = _reservationData.value?.personList
         val element = list?.get(position)?.copy(isCorrect = false)
         element?.let { list.set(position, it) }
