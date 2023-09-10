@@ -117,8 +117,10 @@ class ReservationFragment : BaseFragment<FragmentReservationFragmentBinding>()  
             is ReservationEvents.EmailPhoneError -> setErrorEditTextBackground(event.errorText)
             is ReservationEvents.PersonInformationError -> {
                 Toast.makeText(activity, event.errorText, Toast.LENGTH_SHORT).show()
-                viewModel.setErrorOnPerson(event.position)
-                recycler.notifyItemChanged(event.position)
+                event.position.forEach {
+                    viewModel.setErrorOnPerson(it)
+                    recycler.notifyItemChanged(it)
+                }
             }
             is ReservationEvents.Success -> {}
         }

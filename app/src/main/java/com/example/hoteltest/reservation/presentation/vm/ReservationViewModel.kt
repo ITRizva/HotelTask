@@ -115,15 +115,16 @@ class ReservationViewModel @Inject constructor(
         if(phoneNum == null || email == null) return ReservationEvents.EmailPhoneError(context.resources.getString(R.string.num_email_error))
         if(!phoneNum.isPhoneValid() || !email.isEmailValid()) return ReservationEvents.EmailPhoneError(context.resources.getString(R.string.num_email_error))
         val positionError = checkPersonList()
-        if(positionError != VALID_DATA) return ReservationEvents.PersonInformationError(context.resources.getString(R.string.person_error),positionError)
+        if(positionError.isNotEmpty()) return ReservationEvents.PersonInformationError(context.resources.getString(R.string.person_error),positionError)
         return ReservationEvents.Success
     }
 
-    private fun checkPersonList():Int{
+    private fun checkPersonList():ArrayList<Int>{
+        val errorPersonPosition = arrayListOf<Int>()
         _reservationData.value?.personList?.forEachIndexed { index, personRegistrationItem ->
-            if(!personRegistrationItem.fieldIsNotCorrect()) return index
+            if(!personRegistrationItem.fieldIsNotCorrect()) errorPersonPosition.add(index)
         }
-        return VALID_DATA
+        return errorPersonPosition
     }
 
     private fun PersonRegistrationItem.fieldIsNotCorrect():Boolean{
