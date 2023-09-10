@@ -50,6 +50,10 @@ class RoomsFragment : BaseFragment<FragmentRoomsFragmentBinding>() {
         viewModel.hotelName.observe(viewLifecycleOwner){
             binding.hotelName.text = it
         }
+
+        binding.stepBack.setOnClickListener {
+            viewModel.stepBack()
+        }
     }
 
 

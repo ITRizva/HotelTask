@@ -109,6 +109,10 @@ class ReservationViewModel @Inject constructor(
         list?.let{_reservationData.value = _reservationData.value?.copy( personList = list)}
     }
 
+    fun stepBack(){
+        navigator.stepBack()
+    }
+
     private fun checkReservationData():ReservationEvents{
         val phoneNum = _reservationData.value?.phoneNumber
         val email = _reservationData.value?.email

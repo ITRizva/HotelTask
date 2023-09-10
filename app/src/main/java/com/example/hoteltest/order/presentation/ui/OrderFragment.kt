@@ -11,6 +11,7 @@ import com.example.hoteltest.databinding.FragmentOrderFragmentBinding
 import com.example.hoteltest.order.presentation.vm.OrderViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.Serializable
+import java.util.Random
 
 @AndroidEntryPoint
 class OrderFragment : BaseFragment<FragmentOrderFragmentBinding>() {
@@ -33,10 +34,13 @@ class OrderFragment : BaseFragment<FragmentOrderFragmentBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.orderData.observe(viewLifecycleOwner){
-            binding.orderDescription.text = String.format(resources.getString(R.string.order_description,it.hashCode()))
+            binding.orderDescription.text = String.format(resources.getString(R.string.order_description,Random().nextInt(999999999).toString()))
         }
         binding.superButton.setOnClickListener {
             viewModel.openHotelFragment()
+        }
+        binding.stepBack.setOnClickListener {
+            viewModel.stepBack()
         }
     }
 }

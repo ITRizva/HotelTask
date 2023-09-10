@@ -58,6 +58,10 @@ class RoomsViewModel @Inject constructor(
         }
     }
 
+    fun stepBack(){
+        navigator.stepBack()
+    }
+
     private fun updateData() {
         _contentState.value = RoomsViewModelState.Loading
         viewModelScope.launch {

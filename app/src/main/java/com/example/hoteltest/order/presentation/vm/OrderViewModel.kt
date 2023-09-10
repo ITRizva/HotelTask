@@ -25,4 +25,8 @@ class OrderViewModel @Inject constructor(private val savedStateHandle: SavedStat
     fun openHotelFragment(){
         navigator.popUntil(RoomsFragment.ROOM_SCREEN_VALUE)
     }
+
+    fun stepBack(){
+        navigator.stepBack()
+    }
 }

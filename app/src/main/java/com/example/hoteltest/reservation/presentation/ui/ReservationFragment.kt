@@ -60,6 +60,9 @@ class ReservationFragment : BaseFragment<FragmentReservationFragmentBinding>()  
             showEvent(it)
         }
 
+        binding.stepBack.setOnClickListener {
+            viewModel.stepBack()
+        }
         binding.addPerson.setOnClickListener {
             viewModel.addPerson()
         }
